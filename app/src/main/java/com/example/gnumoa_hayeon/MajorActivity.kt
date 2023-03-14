@@ -15,19 +15,22 @@ class MajorActivity : AppCompatActivity() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_major)
+        setContentView(binding.root)
 
         binding.homeButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
+            finish();
         }
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
+            finish();
         }
         binding.heartButton.setOnClickListener {
             val intent = Intent(this, HeartActivity::class.java)
             startActivity(intent)
+            finish();
         }
     }
 }
