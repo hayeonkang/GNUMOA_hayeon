@@ -4,11 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
+import androidx.core.content.ContextCompat.startActivity
+import com.example.gnumoa_hayeon.databinding.ActivityHeart0Binding
 
-class HomeActivity : AppCompatActivity() {
+class Heart0Activity : AppCompatActivity() {
     private val binding by lazy {
-        ActivityHomeBinding.inflate(layoutInflater)
+        ActivityHeart0Binding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,6 @@ class HomeActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
-        //setContentView(R.layout.activity_home)
         setContentView(binding.root)
 
         binding.homeButton.setOnClickListener {
@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, Heart0Activity::class.java)
             startActivity(intent)
             finish();
-
-        }
     }
+}
 }
