@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_noticeList"
+        android:layout_width="409dp"
+        android:layout_height="618dp"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="227dp"
@@ -25,7 +35,7 @@
         android:background="#FEFEFE"
         android:padding="0sp"
         android:scaleType="fitCenter"
-        android:tint="#5069F0"
+        app:tint="#5069F0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/baseline_home_24" />
@@ -96,24 +106,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/majorButton"
         app:srcCompat="@drawable/baseline_favorite_24" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="414dp"
-        android:layout_height="560dp"
-        android:background="#DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/majorButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.258">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
