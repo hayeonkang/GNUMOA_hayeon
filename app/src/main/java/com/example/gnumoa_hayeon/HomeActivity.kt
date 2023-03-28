@@ -34,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
             finish();
         }
 
+        //테스트용
         val noticeList = arrayListOf(
             Notice_list("컴퓨터과학과", "장학", "2023년도 장학생 선발", "장학금 신청서.hwd 파일 참고","23/03/28",R.drawable.empty_heart),
             Notice_list("컴퓨터과학과", "장학", "2023년도 장학생 선발", "장학금 신청서.hwd 파일 참고","23/03/28",R.drawable.empty_heart),
