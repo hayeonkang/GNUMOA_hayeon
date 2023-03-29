@@ -4,11 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import android.view.WindowManager
-import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
 import com.example.gnumoa_hayeon.databinding.ActivityMainBinding
-import kotlinx.coroutines.delay
+
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {

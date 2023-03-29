@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
-import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -50,9 +50,9 @@ class HomeActivity : AppCompatActivity() {
             Notice_list("컴퓨터과학과", "장학", "2023년도 장학생 선발", "장학금 신청서.hwd 파일 참고","23/03/28",R.drawable.empty_heart)
         )
 
-        rv_noticeList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv_noticeList.setHasFixedSize(true)
+        binding.rvNoticeList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvNoticeList.setHasFixedSize(true)
 
-        rv_noticeList.adapter = NoticeAdapter(noticeList)
+        binding.rvNoticeList.adapter = NoticeAdapter(noticeList)
     }
 }
