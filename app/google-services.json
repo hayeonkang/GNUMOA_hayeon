@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "847390840165",
+    "project_id": "gnu-moa",
+    "storage_bucket": "gnu-moa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847390840165:android:5ff2a755dfc95bf3807d8c",
+        "android_client_info": {
+          "package_name": "com.example.gnumoa_hayeon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847390840165-9u6fn79a0p0nmeh249mtrvvenihare72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS-CxOeu51XeR8JaIlPXjYm7seaJoLaI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847390840165-9u6fn79a0p0nmeh249mtrvvenihare72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

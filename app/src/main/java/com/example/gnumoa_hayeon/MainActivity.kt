@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import com.example.gnumoa_hayeon.databinding.ActivityMainBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -31,12 +32,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val database = Firebase.firestore
+        val db = Firebase.firestore
         val testData = hashMapOf(
-            "name" to "khy",
+            "name" to "jjj",
             "age" to "22",
             "country" to "Korea"
         )
-        database.collection("test").add(testData)
+        db.collection("Android").document("test").set(testData)
+//
+//        fun main() {
+//            println("hello world")
+//        }
+
+
     }
 }
+
+

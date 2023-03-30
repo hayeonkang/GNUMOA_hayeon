@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.core.view.View
 
 // : -> 상속
 class NoticeAdapter(val noticeList: ArrayList<Notice_list>) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
