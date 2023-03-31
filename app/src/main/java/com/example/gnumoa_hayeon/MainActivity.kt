@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import com.example.gnumoa_hayeon.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -33,16 +34,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         val db = Firebase.firestore
+
         val testData = hashMapOf(
-            "name" to "jjj",
+            "name" to "김희영",
             "age" to "22",
             "country" to "Korea"
         )
-        db.collection("Android").document("test").set(testData)
-//
-//        fun main() {
-//            println("hello world")
-//        }
+        db.collection("inmun").document("test").set(testData)
+
 
 
     }
