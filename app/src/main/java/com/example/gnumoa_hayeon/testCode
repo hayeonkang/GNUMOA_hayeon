@@ -113,3 +113,25 @@ val db = Firebase.firestore
                     .addOnFailureListener{ exception ->
                         Log.d(TAG, "Error:", exception)
                     }
+
+
+        // 파이어베이스 functions을 이용한 학과 카테고리 배열로 들고오기
+                val functions = FirebaseFunctions.getInstance()
+
+                val data = hashMapOf(
+                    "college" to "inmun",
+                    "department" to "dokmun"
+                )
+                functions.getHttpsCallable("listSubcollections")
+                    .call(data)
+                    .addOnSuccessListener { task ->
+                        val result = task.data as Map<String, Any>
+                        val collections = result["collections"] as List<String>
+                        Log.d("FirebaseFunctions", "Successfully read collections: $collections")
+                        // 읽어온 컬렉션 데이터 처리
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("FirebaseFunctions", "Error reading collections: ", exception)
+                        // 읽어오기 실패 처리
+                    }
+
