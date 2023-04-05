@@ -7,14 +7,15 @@ plugins {
 
 android {
     namespace 'com.example.gnumoa_hayeon'
-    compileSdk 33
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.gnumoa_hayeon"
         minSdk 24
-        targetSdk 33
+        targetSdk 31
         versionCode 1
         versionName "1.0"
+        compileSdkPreview = "UpsideDownCake"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,6 +50,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.4.0')
     //파이어스토어 라이브러리에 대한 선언
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
+    implementation 'androidx.core:core-ktx:+'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

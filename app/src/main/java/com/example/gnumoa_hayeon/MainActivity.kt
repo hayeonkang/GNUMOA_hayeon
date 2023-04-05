@@ -1,5 +1,6 @@
 package com.example.gnumoa_hayeon
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,14 +34,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val db = Firebase.firestore
+//        val db = Firebase.firestore
+//
+//        val testData = hashMapOf(
+//            "name" to "김희영",
+//            "age" to "22",
+//            "country" to "Korea"
+//        )
+//        db.collection("inmun").document("test").set(testData)
 
-        val testData = hashMapOf(
-            "name" to "김희영",
-            "age" to "22",
-            "country" to "Korea"
-        )
-        db.collection("inmun").document("test").set(testData)
 
 
 

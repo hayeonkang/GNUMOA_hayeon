@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 // : -> 상속
+// 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
+// 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 class NoticeAdapter(val noticeList: ArrayList<Notice_list>) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     //공지화면이랑 공지리스트 병합
@@ -20,7 +22,7 @@ class NoticeAdapter(val noticeList: ArrayList<Notice_list>) : RecyclerView.Adapt
         holder.major.text = noticeList.get(position).major
         holder.category.text = noticeList.get(position).category
         holder.title.text = noticeList.get(position).title
-        holder.context.text = noticeList.get(position).context
+        holder.context.text = noticeList.get(position).context.toString()
         holder.date.text = noticeList.get(position).date.toString() //문자열로 변환
         holder.heart.setImageResource(noticeList.get(position).heart)
     }
@@ -36,7 +38,7 @@ class NoticeAdapter(val noticeList: ArrayList<Notice_list>) : RecyclerView.Adapt
         val title = itemView.findViewById<TextView>(R.id.tv_title) // 제목
         val context = itemView.findViewById<TextView>(R.id.tv_context) // 내용요약
         val date = itemView.findViewById<TextView>(R.id.tv_date) // 날짜
-        val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심공지
+        val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
     }
 
 
