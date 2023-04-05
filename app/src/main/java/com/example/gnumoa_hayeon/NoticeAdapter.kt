@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 class NoticeAdapter(val noticeList: ArrayList<Notice_list>) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
-    //O
+    //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳
+    //NoticeViewHolder => view 홀더 정의하는 곳
 
     //공지화면이랑 공지리스트 병합
     // 1. LayoutInflater를 통해 설계해둔 리스트를 view 변수안에 넣어서 생성
