@@ -1,16 +1,15 @@
 /* 파이어스토어에 데이터 추가 테스트 코드 */
 val db = Firebase.firestore
         val user = hashMapOf(
-            "first" to "khy",
-            "last" to "Lovelace",
-            "born" to 1815
+            "name" to "khy",
+            "age" to 22,
+            "born" to 2002
         )
 
-        // Add a new document with a generated ID
-        db.collection("inmun")
-            .add(user)
+        db.collection("inmun").document("user")
+            .set(user)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d(TAG, "Success")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
@@ -106,7 +105,7 @@ val db = Firebase.firestore
 
                 docRef.get().addOnSuccessListener { documents ->
                     for(document in documents) {
-                        document.get()
+
                         Log.d(TAG, "${document.id} => ${document.data}")
                     }
                 }

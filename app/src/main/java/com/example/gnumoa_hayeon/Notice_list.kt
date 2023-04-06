@@ -3,6 +3,7 @@ package com.example.gnumoa_hayeon
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -11,11 +12,12 @@ import com.google.firebase.ktx.Firebase
 //변수 타입은 Firestore 필드의 타입과 같게 한다
 //date 타입 String -> Timestamp 로 변경
 data class Notice_list(
-    val major: String,
-    val category: String,
-    val title: String,
-    val context: String,
-    val date: String,
-    val heart: Int)
+    val major: String?=null,
+    val category: String?=null,
+    val title: String?=null,
+    val summary: ArrayList<String>?=null,
+    val createdAt: Timestamp?=null,
+    val heart: Int?=null)
+
 
 
