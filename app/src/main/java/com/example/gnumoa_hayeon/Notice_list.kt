@@ -15,9 +15,7 @@ data class Notice_list(
     val major: String?=null,
     val category: String?=null,
     val title: String?=null,
-    val summary: ArrayList<String>?=null,
+    val context: ArrayList<String>?=null,
     val createdAt: Timestamp?=null,
-    val heart: Int?=null)
-
-
-
+    val heart: Int?=null
+)

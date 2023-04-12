@@ -17,15 +17,16 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     init {
         val firestore = FirebaseFirestore.getInstance()
 
-        firestore?.collection("inmun")?.document("dokmun")?.collection("기타")?.addSnapshotListener {
-                querySnapshot, firebaseFirestoreException -> noticeList.clear()
+        firestore?.collection("inmun")?.document("dokmun")?.collection("기타")
+            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                noticeList.clear()
 
-            for (snapshot in querySnapshot!!.documents) {
-                var item = snapshot.toObject(Notice_list::class.java)
-                noticeList.add(item!!)
+                for (snapshot in querySnapshot!!.documents) {
+                    var item = snapshot.toObject(Notice_list::class.java)
+                    noticeList.add(item!!)
+                }
+                notifyDataSetChanged()
             }
-            notifyDataSetChanged()
-        }
     }
 
     //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳
@@ -34,8 +35,12 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     //공지화면이랑 공지리스트 병합
     // 1. LayoutInflater를 통해 설계해둔 리스트를 view 변수안에 넣어서 생성
     // 2. NoticeViewHolder에 생성한 view를 전달하여 그 값을 리턴
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeAdapter.NoticeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.notice_list, parent, false) //view 생성
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): NoticeAdapter.NoticeViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.notice_list, parent, false) //view 생성
         return NoticeViewHolder(view) //뷰홀더에 뷰 전달
     }
 
@@ -45,7 +50,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         holder.major.text = noticeList.get(position).major
         holder.category.text = noticeList.get(position).category
         holder.title.text = noticeList.get(position).title
-        holder.summary.text = noticeList.get(position).summary.toString()
+        holder.context.text = noticeList.get(position).context.toString()
         holder.createdAt.text = noticeList.get(position).createdAt.toString()//문자열로 변환
         noticeList.get(position).heart?.let { holder.heart.setImageResource(it) }
     }
@@ -61,10 +66,8 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val major = itemView.findViewById<TextView>(R.id.tv_major) // 학과
         val category = itemView.findViewById<TextView>(R.id.tv_category) //카테고리
         val title = itemView.findViewById<TextView>(R.id.tv_title) // 제목
-        val summary = itemView.findViewById<TextView>(R.id.tv_summary) // 내용요약
+        val context = itemView.findViewById<TextView>(R.id.tv_context) // 내용요약
         val createdAt = itemView.findViewById<TextView>(R.id.tv_createdAt) // 날짜
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
     }
-
-
 }
