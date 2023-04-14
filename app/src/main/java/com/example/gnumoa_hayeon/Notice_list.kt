@@ -19,3 +19,10 @@ data class Notice_list(
     val createdAt: Timestamp?=null,
     val heart: Int?=null
 )
+    /*: Comparable<Notice_list> {
+
+    override fun compareTo(other: Notice_list): Int {
+        return createdAt?.compareTo(other.createdAt) ?: 0
+    }
+}
+*/

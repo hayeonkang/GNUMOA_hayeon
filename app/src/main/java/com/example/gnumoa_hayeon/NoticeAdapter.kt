@@ -16,7 +16,7 @@ import java.util.*
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
-    val noticeList: ArrayList<Notice_list> = arrayListOf()
+    var noticeList: ArrayList<Notice_list> = arrayListOf()
 
     //요약 보여주기 - 공지 전체내용 중 일부(80자)만 가져옴
     //context가 null 또는 empty가 아니라면 fullText 값을 계산한 후 80자 이상인 경우 일부를 자르고 "..."을 붙입니다.
@@ -32,45 +32,56 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     // documents와 collections1, collections2 리스트를 만들어서 중첩 반복문으로 각각의 문서와 컬렉션을 가져와서 SnapshotListener를 등록
     // 리스트에 있는 모든 컬렉션들의 문서 데이터가 noticeList에 추가
     // notifyDataSetChanged() 함수를 호출하여 RecyclerView를 업데이트
+//    val allDocuments = listOf(
+//        "dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea",
+//        "minsok", "russia", "sophia", "biomat", "chem", "cloth", "cs", "cse",
+//        "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat,",
+//        "economics", "pa", "polisci", "psychology", "socialwelfare", "socio",
+//        "business"
+//    )
+
+
+
+
+//인문대학, 자연과학대학 모든 문서 가져와서 최신순으로 정렬 완료
     init {
-        val inmunDocuments = listOf("dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea", "minsok", "russia", "sophia")
-        val inmunCollections = listOf("공지사항", "기타", "장학", "수업", "졸업", "학사", "행사")
-
-        val cnsDocuments = listOf("biomat", "chem", "cloth", "cs", "cse", "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat")
-        val cnsCollections = listOf("공지사항", "기타", "장학", "수업", "졸업", "학사", "행사")
-
         val firestore = FirebaseFirestore.getInstance()
+        val allDocuments = listOf(
+            "dokmun", "korea", "china", "english", "e_language", "france", "hanmun", "his", "korea", "minsok", "russia", "sophia",
+            "biomat", "chem", "cloth", "cs", "cse",
+            "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat"
+        )
 
-// inmun 컬렉션의 문서 데이터 가져오기
-        for (document in inmunDocuments) {
-            for (collection in inmunCollections) {
-                firestore.collection("inmun").document(document).collection(collection)
-                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+        val allCollections = listOf("공지사항", "전체공지", "학과공지", "공지(2022학번 이후)", "공지(~2021학번까지)", "취업정보", "채용공고", "진로-취업", "기타", "장학", "장학-등록", "장학정보", "장학관련", "수업", "졸업", "학사","학사공지", "행사", "행사-기타", "공모전 및 대회", "대외활동 공고", "비교과프로그램", "외국인 유학생 안내")
 
-                        for (snapshot in querySnapshot!!.documents) {
-                            var item = snapshot.toObject(Notice_list::class.java)
-                            noticeList.add(item!!)
-                        }
-                        notifyDataSetChanged()
+        for (document in allDocuments) {
+            for (collection in allCollections) {
+                val inmunRef = firestore.collection("inmun").document(document).collection(collection)
+                val cnsRef = firestore.collection("cns").document(document).collection(collection)
+
+                // Add a snapshot listener for each collection
+                inmunRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
                     }
-            }
-        }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
 
-// cns 컬렉션의 문서 데이터 가져오기
-        for (document in cnsDocuments) {
-            for (collection in cnsCollections) {
-                firestore.collection("cns").document(document).collection(collection)
-                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-
-                        for (snapshot in querySnapshot!!.documents) {
-                            var item = snapshot.toObject(Notice_list::class.java)
-                            noticeList.add(item!!)
-                        }
-                        notifyDataSetChanged()
+                cnsRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
                     }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
             }
         }
     }
+
+
 
 
     //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳

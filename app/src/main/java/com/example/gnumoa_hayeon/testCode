@@ -134,3 +134,109 @@ val db = Firebase.firestore
                         // 읽어오기 실패 처리
                     }
 
+/*
+val inmunDocuments = listOf("dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea", "minsok", "russia", "sophia")
+val inmunCollections = listOf("공지사항", "기타", "장학", "수업", "졸업", "학사", "행사")
+
+val cnsDocuments = listOf("biomat", "chem", "cloth", "cs", "cse", "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat")
+val cnsCollections = listOf("공지사항", "기타", "장학", "수업", "졸업", "학사", "행사")
+
+val firestore = FirebaseFirestore.getInstance()
+
+val allDocuments = inmunDocuments + cnsDocuments
+val allCollections = inmunCollections + cnsCollections
+var counter = 0 // 쿼리 완료 수
+val totalQueries = allDocuments.size * allCollections.size // 총 쿼리 수
+
+for (document in allDocuments) {
+for (collection in allCollections) {
+    firestore.collection(if (document in inmunDocuments) "inmun" else "cns")
+        .document(document).collection(collection)
+        .get()
+        .addOnSuccessListener { querySnapshot ->
+            for (snapshot in querySnapshot.documents) {
+                val item = snapshot.toObject(Notice_list::class.java)
+                item?.let { noticeList.add(it) }
+            }
+        }
+        .addOnFailureListener { e ->
+            Log.w("TAG", "Error getting documents.", e)
+        }
+        .addOnCompleteListener {
+            counter++
+            if (counter == totalQueries) {
+                // 모든 쿼리 완료 후 날짜순으로 정렬
+                noticeList.sortByDescending { it.createdAt?.toDate() }
+                notifyDataSetChanged()
+            }
+        }
+}
+}
+
+// inmun 컬렉션의 문서 데이터 가져오기
+for (document in inmunDocuments) {
+for (collection in inmunCollections) {
+    firestore.collection("inmun").document(document).collection(collection)
+        .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+
+            for (snapshot in querySnapshot!!.documents) {
+                var item = snapshot.toObject(Notice_list::class.java)
+                noticeList.add(item!!)
+            }
+            notifyDataSetChanged()
+        }
+}
+}
+
+// cns 컬렉션의 문서 데이터 가져오기
+for (document in cnsDocuments) {
+for (collection in cnsCollections) {
+    firestore.collection("cns").document(document).collection(collection)
+        .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+
+            for (snapshot in querySnapshot!!.documents) {
+                var item = snapshot.toObject(Notice_list::class.java)
+                noticeList.add(item!!)
+            }
+            notifyDataSetChanged()
+        }
+}
+}
+*/
+
+//단과대학도 리스트로 묶어서 삼중 중첩 반복문 도는 코드 수정 중
+init {
+        val firestore = FirebaseFirestore.getInstance()
+        //val allColCollection = listOf("inmun", "cns", "css", "biz")
+        val allDocuments = listOf(
+            "dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea",
+            "minsok", "russia", "sophia", "biomat", "chem", "cloth", "cs", "cse",
+            "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat"
+        )
+
+        val allCollections = listOf("공지사항", "전체공지", "학과공지", "공지(2022학번 이후)", "공지(~2021학번까지)", "취업정보", "채용공고", "진로-취업", "기타", "장학", "장학-등록", "장학정보", "장학관련", "수업", "졸업", "학사","학사공지", "행사", "행사-기타", "공모전 및 대회", "대외활동 공고", "비교과프로그램", "외국인 유학생 안내")
+
+        for (document in allDocuments) {
+            for (collection in allCollections) {
+                val inmunRef = firestore.collection("inmun").document(document).collection(collection)
+                val cnsRef = firestore.collection("cns").document(document).collection(collection)
+
+                // Add a snapshot listener for each collection
+                inmunRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    notifyDataSetChanged()
+                }
+
+                cnsRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    notifyDataSetChanged()
+                }
+            }
+        }
+    }
