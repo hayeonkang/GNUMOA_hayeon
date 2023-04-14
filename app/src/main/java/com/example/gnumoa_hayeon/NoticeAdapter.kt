@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 // : -> 상속
 // 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
@@ -20,7 +19,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     val noticeList: ArrayList<Notice_list> = arrayListOf()
 
     //요약 보여주기 - 공지 전체내용 중 일부(80자)만 가져옴
-    //context가 null 또는 empty가 아니라면 fullText 값을 계산한 후 80자 이상인 경우 일부를 자르고 "..."을 붙임
+    //context가 null 또는 empty가 아니라면 fullText 값을 계산한 후 80자 이상인 경우 일부를 자르고 "..."을 붙입니다.
     private fun getContextPreview(context: ArrayList<String>?): String {
         if (!context.isNullOrEmpty()) {
             val fullText = context[0]
@@ -49,7 +48,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                     .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                         for (snapshot in querySnapshot!!.documents) {
-                            val item = snapshot.toObject(Notice_list::class.java)
+                            var item = snapshot.toObject(Notice_list::class.java)
                             noticeList.add(item!!)
                         }
                         notifyDataSetChanged()
@@ -64,14 +63,13 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                     .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                         for (snapshot in querySnapshot!!.documents) {
-                            val item = snapshot.toObject(Notice_list::class.java)
+                            var item = snapshot.toObject(Notice_list::class.java)
                             noticeList.add(item!!)
                         }
                         notifyDataSetChanged()
                     }
             }
         }
-
     }
 
 
