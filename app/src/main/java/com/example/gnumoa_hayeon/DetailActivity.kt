@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebChromeClient
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gnumoa_hayeon.databinding.NoticeDetailBinding
@@ -45,6 +46,14 @@ class DetailActivity :AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
+
+//            val html = data!!.html
+//
+//            if (html != null) {
+//                binding.noticeHtml.loadUrl(html)
+//                binding.noticeHtml.settings.javaScriptEnabled=true
+//                binding.noticeHtml.webChromeClient = WebChromeClient()
+//            }
 
 
         }
