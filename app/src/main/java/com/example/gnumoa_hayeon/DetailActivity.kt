@@ -1,11 +1,15 @@
 package com.example.gnumoa_hayeon
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gnumoa_hayeon.databinding.NoticeDetailBinding
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +37,16 @@ class DetailActivity :AppCompatActivity() {
             binding.noticeMajor.text = data!!.major
             binding.noticeDate.text = sdf.format(date)
             binding.noticeContext.text = data!!.context.toString()
+            binding.fileUrls.text = data!!.fileUrls.toString()
+
+            val url = data!!.baseUrl
+
+            binding.btnUrl.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+
+
         }
 
         binding.btnBack.setOnClickListener{
@@ -40,6 +54,10 @@ class DetailActivity :AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+
+
+
 
     }
 }

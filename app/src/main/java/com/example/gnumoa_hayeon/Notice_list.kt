@@ -22,20 +22,26 @@ data class Notice_list(
     val title: String?=null,
     val context: ArrayList<String>?=null,
     val createdAt: Timestamp?=null,
-    val heart: Int?=null
-) : Parcelable {
-    companion object {
-        fun fromDocument(snapshot: DocumentSnapshot): Notice_list {
-            val data = snapshot.data ?: throw IllegalArgumentException("Document doesn't exist!")
-            return Notice_list(
-                major = data["major"] as String?,
-                category = data["category"] as String?,
-                title = data["title"] as String?,
-                context = data["context"] as ArrayList<String>?,
-                createdAt = data["createdAt"] as Timestamp?,
-                heart = data["heart"] as Int?
-            )
-        }
-    }
-}
-
+    val heart: Int?=null,
+    val baseUrl: String?=null,
+    val fileUrls: HashMap<String, String>?=null,
+    val html: String?=null
+) : Parcelable
+//{
+//
+//
+//    companion object {
+//        fun fromDocument(snapshot: DocumentSnapshot): Notice_list {
+//            val data = snapshot.data ?: throw IllegalArgumentException("Document doesn't exist!")
+//            return Notice_list(
+//                major = data["major"] as String?,
+//                category = data["category"] as String?,
+//                title = data["title"] as String?,
+//                context = data["context"] as ArrayList<String>?,
+//                createdAt = data["createdAt"] as Timestamp?,
+//                heart = data["heart"] as Int?
+//            )
+//        }
+//    }
+//}
+//
