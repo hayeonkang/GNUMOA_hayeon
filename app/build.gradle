@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    
+
     namespace 'com.example.gnumoa_hayeon'
     compileSdk 33
 
@@ -49,10 +51,11 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
 
     //파이어스토어 라이브러리에 대한 선언
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
-    implementation 'com.google.firebase:firebase-firestore:24.4.5'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.5.0'
+    implementation 'com.google.firebase:firebase-firestore:24.5.0'
     implementation 'com.google.firebase:firebase-functions-ktx:20.2.2'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'junit:junit:4.12'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

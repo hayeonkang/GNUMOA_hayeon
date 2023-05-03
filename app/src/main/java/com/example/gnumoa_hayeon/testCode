@@ -134,6 +134,20 @@ val db = Firebase.firestore
                         // 읽어오기 실패 처리
                     }
 
+
+        init {
+                val firestore = FirebaseFirestore.getInstance()
+
+                firestore?.collection("inmun")?.document("china")?.collection("공지사항")?.addSnapshotListener {
+                        querySnapshot, firebaseFirestoreException -> noticeList.clear()
+
+                    for (snapshot in querySnapshot!!.documents) {
+                        var item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    notifyDataSetChanged()
+                }
+            }
 /*
 val inmunDocuments = listOf("dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea", "minsok", "russia", "sophia")
 val inmunCollections = listOf("공지사항", "기타", "장학", "수업", "졸업", "학사", "행사")
@@ -240,3 +254,34 @@ init {
             }
         }
     }
+
+
+
+
+  init {
+                 val db = FirebaseFirestore.getInstance()
+                 val collegeList = listOf("biz","cals","cap","ce","cee","cns","css","cte","healthcare","inmun","law","marsci","mce","medicine","pharm","sadae","vet")
+
+                  for (college in collegeList) {
+                      db?.collection(college)?.addSnapshotListener { mainCollection, exception1 ->
+                          for(major in mainCollection!!.documents) {
+                              db?.collection(college)?.document(major.id)?.addSnapshotListener { mainDocument, exception2 ->
+                                  for(category in mainDocument!!.data!!.keys) {
+                                      db?.collection(college)?.document(major.id)?.collection(category)?.addSnapshotListener { subCollection, exception3 -> noticeList.clear()
+                                          for(context in subCollection!!.documents) {
+                                              val item = context.toObject(Notice_list::class.java)
+                                              noticeList.add(item!!)
+                                          }
+                                        noticeList.sortByDescending { it.createdAt }
+                                          notifyDataSetChanged()
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+             }
+
+
+
+
