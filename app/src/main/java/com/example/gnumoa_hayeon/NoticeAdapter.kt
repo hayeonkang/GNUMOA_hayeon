@@ -74,7 +74,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 //        "cap",
 //        "archeng", "me", "polymer", "metals", "ise", "anse", "arch", "urban", "se", "el", "control", "civil", "chemeng",
 //            "civilinfra", "im", "landscape", "env", "design",
-//        "ls", "physics", "math", "foodnutri", "cloth", "stat", "pharmgine", "geology", "biomat", "chem", "cs", "cse",
+//        "ls", "physics", "math", "foodnutri", "cloth", "stat", "pharmgine", "geology", "biomat", "chem", "cs", "cse"
 //        "economics", "social", "socio", "psychology", "polisci", "pa",
 //        "mm", "mecha", "cele", "energyeng", "car",
 //        "healthcare",

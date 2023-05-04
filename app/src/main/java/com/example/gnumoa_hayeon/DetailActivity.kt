@@ -37,7 +37,7 @@ class DetailActivity :AppCompatActivity() {
             binding.noticeCategory.text = data!!.category
             binding.noticeMajor.text = data!!.major
             binding.noticeDate.text = sdf.format(date)
-            binding.noticeContext.text = data!!.context.toString()
+//            binding.noticeContext.text = data!!.context.toString()
             binding.fileUrls.text = data!!.fileUrls.toString()
 
             val url = data!!.baseUrl
@@ -47,13 +47,12 @@ class DetailActivity :AppCompatActivity() {
                 startActivity(intent)
             }
 
-//            val html = data!!.html
-//
-//            if (html != null) {
-//                binding.noticeHtml.loadUrl(html)
-//                binding.noticeHtml.settings.javaScriptEnabled=true
-//                binding.noticeHtml.webChromeClient = WebChromeClient()
-//            }
+            val html = data!!.html
+
+            if (html != null) {
+                binding.noticeHtml.loadData(html, "text/html", "UTF-8")
+                binding.noticeHtml.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
+            }
 
 
         }
