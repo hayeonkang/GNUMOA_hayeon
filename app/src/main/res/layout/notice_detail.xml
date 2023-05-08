@@ -195,7 +195,10 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
-                android:text="TextView" />
+                android:text="파일이름"
+                android:linksClickable="true"
+                android:autoLink="web"
+                android:textSize="12sp" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
