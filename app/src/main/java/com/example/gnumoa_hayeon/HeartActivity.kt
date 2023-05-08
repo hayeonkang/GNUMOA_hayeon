@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHeartBinding
 
 
@@ -27,10 +28,8 @@ class HeartActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish();
             }
-            binding.heartButton.setOnClickListener {
-                val intent = Intent(this, Heart0Activity::class.java)
-                startActivity(intent)
-                finish();
-        }
+
+
+
     }
 }

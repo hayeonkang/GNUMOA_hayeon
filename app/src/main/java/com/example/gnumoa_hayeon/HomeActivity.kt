@@ -17,18 +17,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.homeButton.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish();
-        }
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
             finish();
         }
         binding.heartButton.setOnClickListener {
-            val intent = Intent(this, Heart0Activity::class.java)
+            val intent = Intent(this, HeartActivity::class.java)
             startActivity(intent)
             finish();
         }
@@ -41,7 +36,6 @@ class HomeActivity : AppCompatActivity() {
         //리사이클러뷰랑 뷰 정의해놓은 어댑터 연결
         binding.rvNoticeList.adapter = NoticeAdapter()
 
-//        var major_list: Array<String> = emptyArray()
 
 
         }

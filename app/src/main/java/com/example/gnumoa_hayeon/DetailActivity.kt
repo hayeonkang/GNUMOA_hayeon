@@ -99,14 +99,9 @@ class DetailActivity :AppCompatActivity() {
 
 
         binding.btnBack.setOnClickListener{
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
 
-
-
-
-
     }
+
 }

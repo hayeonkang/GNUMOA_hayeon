@@ -27,10 +27,10 @@ class Heart0Activity : AppCompatActivity() {
             startActivity(intent)
             finish();
         }
-        binding.heartButton.setOnClickListener {
-            val intent = Intent(this, Heart0Activity::class.java)
-            startActivity(intent)
-            finish();
-    }
+//        binding.heartButton.setOnClickListener {
+//            val intent = Intent(this, HeartActivity::class.java)
+//            startActivity(intent)
+//            finish();
+//        }
 }
 }

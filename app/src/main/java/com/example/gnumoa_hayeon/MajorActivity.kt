@@ -20,13 +20,9 @@ class MajorActivity : AppCompatActivity() {
             startActivity(intent)
             finish();
         }
-        binding.majorButton.setOnClickListener {
-            val intent = Intent(this, MajorActivity::class.java)
-            startActivity(intent)
-            finish();
-        }
+
         binding.heartButton.setOnClickListener {
-            val intent = Intent(this, Heart0Activity::class.java)
+            val intent = Intent(this, HeartActivity::class.java)
             startActivity(intent)
             finish();
         }

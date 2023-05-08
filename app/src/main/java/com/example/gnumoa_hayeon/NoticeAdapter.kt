@@ -2,6 +2,11 @@ package com.example.gnumoa_hayeon
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
+import android.media.Image
+import android.net.Uri
+import android.text.TextPaint
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -290,8 +295,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 }
             }
         }
-
-
     }
 
     //화면에 전달
@@ -301,7 +304,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         holder.category.text = noticeList.get(position).category
         holder.title.text = noticeList.get(position).title
         holder.context.text = getContextPreview(noticeList[position].context!!)
-        //holder.createdAt.text = noticeList.get(position).createdAt.toString()//문자열로 변환
         noticeList.get(position).heart?.let { holder.heart.setImageResource(it) }
 
 
@@ -330,4 +332,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val createdAt = itemView.findViewById<TextView>(R.id.tv_createdAt) // 날짜
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
     }
+
+
 }
