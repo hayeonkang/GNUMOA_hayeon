@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".MajorActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_majorList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/majorButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.653" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -77,12 +90,12 @@
         android:layout_marginBottom="3dp"
         android:background="#FEFEFE"
         android:scaleType="fitCenter"
-        android:tint="#5069F0"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_subject_24" />
+        app:srcCompat="@drawable/baseline_subject_24"
+        app:tint="#5069F0" />
 
     <ImageButton
         android:id="@+id/heartButton"
@@ -97,23 +110,14 @@
         app:layout_constraintTop_toTopOf="@+id/majorButton"
         app:srcCompat="@drawable/baseline_favorite_24" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="414dp"
-        android:layout_height="560dp"
-        android:background="#DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/majorButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.258">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical" />-->
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
