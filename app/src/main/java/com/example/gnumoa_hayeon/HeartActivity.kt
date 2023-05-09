@@ -3,11 +3,17 @@ package com.example.gnumoa_hayeon
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHeartBinding
 
 
 class HeartActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityHeartBinding.inflate(layoutInflater)}
+    private val binding by lazy {
+        ActivityHeartBinding.inflate(layoutInflater)
+    }
+
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -15,7 +21,7 @@ class HeartActivity : AppCompatActivity() {
             setContentView(binding.root)
             binding.homeButton.setOnClickListener {
                 val intent =
-                    android.content.Intent(this, com.example.gnumoa_hayeon.HomeActivity::class.java)
+                    Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish();
             }
@@ -24,6 +30,10 @@ class HeartActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish();
             }
+
+
+
+
 
 
 

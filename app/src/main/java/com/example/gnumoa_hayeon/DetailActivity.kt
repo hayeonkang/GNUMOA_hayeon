@@ -44,13 +44,14 @@ class DetailActivity :AppCompatActivity() {
 
         val files = data.fileUrls as HashMap<String, String>
         val stringBuilder = SpannableStringBuilder()
+        //파일 앞에 번호 매기기
         var index = 1
 
         for ((key, value) in files) {
             val prefix = "$index"
             stringBuilder.append("$prefix. $key\n")
             // 파일 이름과 prefix를 StringBuilder에 추가
-            var isClicked = false
+            var isClicked = false //클릭여부 확인용 변수
             val clickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
                     isClicked = true

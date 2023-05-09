@@ -22,7 +22,7 @@ data class Notice_list(
     val title: String?=null,
     val context: ArrayList<String>?=null,
     val createdAt: Timestamp?=null,
-    val heart: Int?=null,
+    var heart: Int?=null,
     val baseUrl: String?=null,
     val fileUrls: HashMap<String, String>?=null,
     val html: String?=null
