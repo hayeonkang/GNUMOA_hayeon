@@ -1,5 +1,4 @@
 /* 파이어스토어에 데이터 추가 테스트 코드 */
-/*커밋하려고 적는 거* 이 줄 지워줘/
 val db = Firebase.firestore
         val user = hashMapOf(
             "name" to "khy",
@@ -286,50 +285,3 @@ init {
 
 
 
-//heart 어댑터
-class HeartAdapter(private val noticeList: List<Notice_list>) : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
-
-    class HeartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
-        val contextTextView: TextView = itemView.findViewById(R.id.tv_context)
-        val majorTextView: TextView = itemView.findViewById(R.id.tv_major)
-        val categoryTextView: TextView = itemView.findViewById(R.id.tv_category)
-        val dateTextView: TextView = itemView.findViewById(R.id.tv_createdAt)
-        val heartImageView: ImageView = itemView.findViewById(R.id.img_heart)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeartViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.notice_list, parent, false)
-        return HeartViewHolder(view)
-    }
-
-    //글자수 제한
-    private fun getContextPreview(context: List<String>): String {
-        if (!context.isNullOrEmpty()) {
-            val fullText = context[0]
-            return if (fullText.length > 70) "${fullText.substring(0, 70)}..." else fullText
-        }
-        return ""
-    }
-
-    override fun onBindViewHolder(holder: HeartViewHolder, position: Int) {
-        val notice = noticeList[position]
-        holder.titleTextView.text = notice.title
-        holder.majorTextView.text = notice.major
-        holder.categoryTextView.text = notice.category
-//        noticeList[position].heart?.let { holder.heartImageView.setImageResource(it) }
-        holder.contextTextView.text = getContextPreview(noticeList[position].context!!)
-
-        // Firestore Timestamp 객체를 Date 객체로 변환
-        val timestamp = noticeList.get(position).createdAt as Timestamp
-        val date = timestamp.toDate()
-
-        // SimpleDateFormat을 사용하여 원하는 형식으로 포맷팅
-        val sdf = SimpleDateFormat("yy / MM / dd", Locale.getDefault())
-        holder.dateTextView.text = sdf.format(date)
-
-    }
-
-    override fun getItemCount(): Int {
-        return noticeList.size
-    }

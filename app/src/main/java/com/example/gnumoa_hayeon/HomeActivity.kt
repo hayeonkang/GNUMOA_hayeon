@@ -36,12 +36,9 @@ class HomeActivity : AppCompatActivity() {
         //리사이클러뷰랑 뷰 정의해놓은 어댑터 연결
         binding.rvNoticeList.adapter = NoticeAdapter()
 
-
+        }
 
     }
-
-}
-
 
 
 

@@ -1,11 +1,20 @@
 package com.example.gnumoa_hayeon
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
+import android.media.Image
+import android.net.Uri
+import android.text.TextPaint
+import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,51 +27,28 @@ import java.util.*
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
+    interface OnItemClickListener {
+        fun onItemClick(item: Notice_list)
+    }
+
     var noticeList: ArrayList<Notice_list> = arrayListOf()
 
     //요약 보여주기 - 공지 전체내용 중 일부(80자)만 가져옴
     //context가 null 또는 empty가 아니라면 fullText 값을 계산한 후 80자 이상인 경우 일부를 자르고 "..."을 붙입니다.
     private fun getContextPreview(context: List<String>): String {
-        if (context.isNotEmpty()) {
+        if (!context.isNullOrEmpty()) {
             val fullText = context[0]
             return if (fullText.length > 70) "${fullText.substring(0, 70)}..." else fullText
         }
         return ""
     }
 
-
-    // documents와 collections1, collections2 리스트를 만들어서 중첩 반복문으로 각각의 문서와 컬렉션을 가져와서 SnapshotListener를 등록
-    // 리스트에 있는 모든 컬렉션들의 문서 데이터가 noticeList에 추가
-    // notifyDataSetChanged() 함수를 호출하여 RecyclerView를 업데이트
-//    val allDocuments = listOf(
-//        "dokmun", "korea", "china", "english", "france", "hanmun", "his", "korea",
-//        "minsok", "russia", "sophia", "biomat", "chem", "cloth", "cs", "cse",
-//        "foodnutri", "geology", "ls", "math", "pharmgine", "psysics", "stat,",
-//        "economics", "pa", "polisci", "psychology", "socialwelfare", "socio",
-//        "business"
-//    )
-
-//    init {
-//        val firestore = FirebaseFirestore.getInstance()
-//
-//        firestore?.collection("inmun")?.document("china")?.collection("공지사항")?.addSnapshotListener {
-//                querySnapshot, firebaseFirestoreException -> noticeList.clear()
-//
-//            for (snapshot in querySnapshot!!.documents) {
-//                var item = snapshot.toObject(Notice_list::class.java)
-//                noticeList.add(item!!)
-//            }
-//            noticeList.sortByDescending { it.createdAt }
-//            notifyDataSetChanged()
-//        }
-//    }
-
-
     init {
         val db = FirebaseFirestore.getInstance()
 
-        val mainDocuments = listOf("accounting","business","industry","mis","smart","trade",
-            "ab","agrieng","agronomy","alc","as","foodsci","fr","hortic","smartagro",
+        val mainDocuments = listOf(
+            "accounting", "business", "industry", "mis", "smart", "trade",
+            "ab", "agrieng", "agronomy", "alc", "as", "foodsci", "fr", "hortic", "smartagro",
 //        "cap",
 //        "archeng", "me", "polymer", "metals", "ise", "anse", "arch", "urban", "se", "el", "control", "civil", "chemeng",
 //            "civilinfra", "im", "landscape", "env", "design",
@@ -80,30 +66,46 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 //        "vet"
         )
 
-        val subCollections = listOf("공지사항-회계세무학부","공지사항-회계학과(구경남과기대)","공지사항-회계학과(구경상대)","공지사항","취업정보","채용공고",
-            "공지사항-가좌","공지사항-칠암","장학공지","전체공지","대외활동","학부공지","졸업공지","기관공지사항","비교과프로그램","행사공지","행사-기타공지",
+        val subCollections = listOf(
+            "공지사항-회계세무학부",
+            "공지사항-회계학과(구경남과기대)",
+            "공지사항-회계학과(구경상대)",
+            "공지사항",
+            "취업정보",
+            "채용공고",
+            "공지사항-가좌",
+            "공지사항-칠암",
+            "장학공지",
+            "전체공지",
+            "대외활동",
+            "학부공지",
+            "졸업공지",
+            "기관공지사항",
+            "비교과프로그램",
+            "행사공지",
+            "행사-기타공지",
             "취업-상담"
         )
 
-        for(major in mainDocuments) {
-            for(category in subCollections) {
+        for (major in mainDocuments) {
+            for (category in subCollections) {
                 val bizRef = db.collection("biz").document(major).collection(category)
                 val calsRef = db.collection("cals").document(major).collection(category)
-//                val capRef = db.collection("cap").document(major).collection(category)
-//                val ceRef = db.collection("ce").document(major).collection(category)
-//                val ceeRef = db.collection("cee").document(major).collection(category)
-//                val cnsRef = db.collection("cns").document(major).collection(category)
-//                val cssRef = db.collection("css").document(major).collection(category)
-//                val cteRef = db.collection("cte").document(major).collection(category)
-//                val healthcareRef = db.collection("healthcare").document(major).collection(category)
-//                val inmunRef = db.collection("inmun").document(major).collection(category)
-//                val lawRef = db.collection("law").document(major).collection(category)
-//                val marsciRef = db.collection("marsci").document(major).collection(category)
-//                val mceRef = db.collection("mce").document(major).collection(category)
-//                val medicineRef = db.collection("medicine").document(major).collection(category)
-//                val pharmRef = db.collection("pharm").document(major).collection(category)
-//                val sadaeRef = db.collection("sadae").document(major).collection(category)
-//                val vetRef = db.collection("vet").document(major).collection(category)
+                val capRef = db.collection("cap").document(major).collection(category)
+                val ceRef = db.collection("ce").document(major).collection(category)
+                val ceeRef = db.collection("cee").document(major).collection(category)
+                val cnsRef = db.collection("cns").document(major).collection(category)
+                val cssRef = db.collection("css").document(major).collection(category)
+                val cteRef = db.collection("cte").document(major).collection(category)
+                val healthcareRef = db.collection("healthcare").document(major).collection(category)
+                val inmunRef = db.collection("inmun").document(major).collection(category)
+                val lawRef = db.collection("law").document(major).collection(category)
+                val marsciRef = db.collection("marsci").document(major).collection(category)
+                val mceRef = db.collection("mce").document(major).collection(category)
+                val medicineRef = db.collection("medicine").document(major).collection(category)
+                val pharmRef = db.collection("pharm").document(major).collection(category)
+                val sadaeRef = db.collection("sadae").document(major).collection(category)
+                val vetRef = db.collection("vet").document(major).collection(category)
 
                 bizRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                     for (snapshot in querySnapshot!!.documents) {
@@ -123,145 +125,10 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                     notifyDataSetChanged()
                 }
 
-//                capRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
 
-//                ceRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                ceeRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                cnsRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                cssRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                cteRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                healthcareRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                inmunRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                lawRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                marsciRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                medicineRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                mceRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                sadaeRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                pharmRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-//
-//                vetRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
             }
         }
-
     }
-
     //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳
     //NoticeViewHolder => view 홀더 정의하는 곳
 
