@@ -75,7 +75,7 @@ class Major_RecyclerViewAdapter(
 
 
         private fun changeVisibility(isExpanded: Boolean) {
-            val dpValue = 250
+            val dpValue = 500
             val d = context!!.resources.displayMetrics.density
             val height = (dpValue * d).toInt()
 
