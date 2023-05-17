@@ -63,6 +63,9 @@ class Major_RecyclerViewAdapter(
         init {
             textView1 = itemView.findViewById<TextView>(R.id.major_title)
             recyclerView = itemView.findViewById(R.id.second_recyclerview)
+
+//            recyclerView.isNestedScrollingEnabled = true
+
         }
 
         fun onBind() {

@@ -1,7 +1,6 @@
 package com.example.gnumoa_hayeon
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,15 @@ class Second_Recyclerview_Adapter(items: ArrayList<MajorActivity.Recycler_item>)
     var context: Context? = null
     private val items: ArrayList<MajorActivity.Recycler_item>
 
+
+
     override fun getItemCount(): Int {
         return items.size
     }
 
     init {
         this.items = items
+
     }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,19 +36,15 @@ class Second_Recyclerview_Adapter(items: ArrayList<MajorActivity.Recycler_item>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.title.text = item.title
-        holder.type.text = item.type
     }
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView: ImageView
-        var type: TextView
         var title: TextView
         var heart: Button
-
         init {
             imageView = itemView.findViewById(R.id.no_image)
-            type = itemView.findViewById(R.id.cardview_type)
             title = itemView.findViewById(R.id.cardview_title)
             heart = itemView.findViewById(R.id.cardview_heart)
         }

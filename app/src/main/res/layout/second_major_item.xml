@@ -6,33 +6,32 @@
     android:layout_height="wrap_content">
 
 
-
 <!--    //카드뷰-->
     <androidx.cardview.widget.CardView
         android:id="@+id/page2_1_cardview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
+        android:layout_height="40dp"
+        android:layout_margin="2dp"
         app:cardCornerRadius="5dp">
 
 <!--        //가로로 정렬-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:background="#F3F3F3">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp">
-<!--                android:background="@drawable/box_round"-->
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1">
+                <!--                android:background="@drawable/box_round"-->
 
 
                 <ImageView
                     android:id="@+id/no_image"
-                    android:layout_width="50dp"
+                    android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/majorimg" />
             </LinearLayout>
@@ -46,23 +45,15 @@
                 android:layout_weight="4"
                 android:layout_margin="5dp">
 
-<!--                //관광지 종류-->
-                <TextView
-                    android:id="@+id/cardview_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="bottom"
-                    android:text="역사"/>
-
 <!--                //관광지 이름-->
                 <TextView
                     android:id="@+id/cardview_title"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="70dp"
                     android:layout_weight="4"
-                    android:gravity="top"
-                    android:text="경복궁"/>
+                    android:text="학과 이름"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -79,7 +70,7 @@
                     android:id="@+id/cardview_heart"
                     android:layout_width="23dp"
                     android:layout_height="23dp"
-                    android:background="@drawable/baseline_favorite_24" />
+                    android:background="@drawable/empty_heart"/>
 
             </LinearLayout>
         </LinearLayout>
