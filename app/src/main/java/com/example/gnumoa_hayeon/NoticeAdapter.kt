@@ -1,20 +1,11 @@
 package com.example.gnumoa_hayeon
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
-import android.media.Image
-import android.net.Uri
-import android.text.TextPaint
-import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -186,6 +177,4 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val createdAt = itemView.findViewById<TextView>(R.id.tv_createdAt) // 날짜
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
     }
-
-
 }

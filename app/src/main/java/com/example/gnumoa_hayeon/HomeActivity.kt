@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
 
 
-
 class HomeActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
@@ -35,11 +34,5 @@ class HomeActivity : AppCompatActivity() {
 
         //리사이클러뷰랑 뷰 정의해놓은 어댑터 연결
         binding.rvNoticeList.adapter = NoticeAdapter()
-
         }
-
     }
-
-
-
-

@@ -3,8 +3,6 @@ package com.example.gnumoa_hayeon
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
-import androidx.core.content.ContextCompat.startActivity
 import com.example.gnumoa_hayeon.databinding.ActivityHeart0Binding
 
 class Heart0Activity : AppCompatActivity() {
