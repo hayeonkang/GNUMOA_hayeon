@@ -31,7 +31,7 @@
 
                 <ImageView
                     android:id="@+id/no_image"
-                    android:layout_width="35dp"
+                    android:layout_width="33dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/majorimg" />
             </LinearLayout>
