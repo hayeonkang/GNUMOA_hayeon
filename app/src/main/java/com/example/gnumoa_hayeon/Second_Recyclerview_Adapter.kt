@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gnumoa_hayeon.MajorActivity
 import com.example.gnumoa_hayeon.R
@@ -28,14 +29,26 @@ class Second_Recyclerview_Adapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.title.text = item.title
+
+        var isHeartFilled = false // 초기 상태는 빈 하트로 설정합니다
+
         holder.heart.setOnClickListener {
-            // Heart 버튼 클릭 이벤트 처리
-            holder.heart.setBackgroundResource(R.drawable.full_heart)
+            isHeartFilled = !isHeartFilled // 클릭할 때마다 상태를 토글합니다
+
+            val heartResource = if (isHeartFilled) {
+                R.drawable.full_heart // 상태에 따라 리소스를 선택합니다 (채워진 하트)
+            } else {
+                R.drawable.empty_heart // 상태에 따라 리소스를 선택합니다 (빈 하트)
+            }
+
+            holder.heart.setBackgroundResource(heartResource)
         }
     }
 
+
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageView: ImageView = itemView.findViewById(R.id.no_image)
+        //var imageView: ImageView = itemView.findViewById(R.id.no_image)
         var title: TextView = itemView.findViewById(R.id.cardview_title)
         var heart: Button = itemView.findViewById(R.id.cardview_heart)
     }
