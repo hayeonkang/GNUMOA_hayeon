@@ -1,5 +1,6 @@
 package com.example.gnumoa_hayeon
 
+import Second_Recyclerview_Adapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.SparseBooleanArray
@@ -11,32 +12,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class Major_RecyclerViewAdapter(
-    private val listData: ArrayList<String>,
-    items: ArrayList<MajorActivity.Recycler_item>
-) : RecyclerView.Adapter<Major_RecyclerViewAdapter.ViewHolder>()  {
-    var adapter: Second_Recyclerview_Adapter? = null
-    private val items: ArrayList<MajorActivity.Recycler_item>
-    private var context: Context? = null
+    private val listData: ArrayList<MajorActivity.Recycler_item_out>
+) : RecyclerView.Adapter<Major_RecyclerViewAdapter.ViewHolder>() {
+    private val context: Context? = null
     private val selectedItems = SparseBooleanArray()
     private var prePosition = -1
 
-    init {
-        this.items = items
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
-        val v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.major_list, parent, false)
-        return ViewHolder(v)
+        val context = parent.context
+        val view: View =
+            LayoutInflater.from(context).inflate(R.layout.major_list, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = Second_Recyclerview_Adapter(items)
+        holder.recyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
+        val adapter = Second_Recyclerview_Adapter(listData[position].items)
         holder.recyclerView.adapter = adapter
-        holder.onBind()
-        holder.textView1.text = listData[position]
+        holder.onBind(itemCount)
+        holder.textView1.text = listData[position].name
         holder.textView1.setOnClickListener {
             val adapterPosition = holder.adapterPosition
             if (selectedItems[adapterPosition]) {
@@ -61,23 +55,23 @@ class Major_RecyclerViewAdapter(
         private var position = 0
 
         init {
-            textView1 = itemView.findViewById<TextView>(R.id.major_title)
+            textView1 = itemView.findViewById(R.id.major_title)
             recyclerView = itemView.findViewById(R.id.second_recyclerview)
-
-//            recyclerView.isNestedScrollingEnabled = true
-
         }
 
-        fun onBind() {
+        fun onBind(itemCount: Int) {
             position = adapterPosition
             changeVisibility(selectedItems[position])
         }
 
 
+        //        fun onBind() {
+//            position = adapterPosition
+//            changeVisibility(selectedItems[position])
+//        }
         private fun changeVisibility(isExpanded: Boolean) {
-            val dpValue = 500
-            val d = context!!.resources.displayMetrics.density
-            val height = (dpValue * d).toInt()
+            recyclerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            val height = recyclerView.measuredHeight
 
             val va =
                 if (isExpanded) ValueAnimator.ofInt(0, height) else ValueAnimator.ofInt(height, 0)
@@ -91,5 +85,24 @@ class Major_RecyclerViewAdapter(
             }
             va.start()
         }
+
+
+//        private fun changeVisibility(isExpanded: Boolean) {
+//            val dpValue = 500
+//            val d = itemView.resources.displayMetrics.density
+//            val height = (dpValue * d).toInt()
+//
+//            val va =
+//                if (isExpanded) ValueAnimator.ofInt(0, height) else ValueAnimator.ofInt(height, 0)
+//            va.duration = 600
+//            va.addUpdateListener { animation ->
+//                val value = animation.animatedValue as Int
+//                recyclerView.layoutParams.height = value
+//                recyclerView.requestLayout()
+//                recyclerView.visibility =
+//                    if (isExpanded) View.VISIBLE else View.GONE
+//            }
+//            va.start()
+//        }
     }
 }
