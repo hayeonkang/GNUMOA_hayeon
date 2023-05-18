@@ -64,11 +64,6 @@ class Major_RecyclerViewAdapter(
             changeVisibility(selectedItems[position])
         }
 
-
-        //        fun onBind() {
-//            position = adapterPosition
-//            changeVisibility(selectedItems[position])
-//        }
         private fun changeVisibility(isExpanded: Boolean) {
             recyclerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
             val height = recyclerView.measuredHeight
@@ -85,24 +80,5 @@ class Major_RecyclerViewAdapter(
             }
             va.start()
         }
-
-
-//        private fun changeVisibility(isExpanded: Boolean) {
-//            val dpValue = 500
-//            val d = itemView.resources.displayMetrics.density
-//            val height = (dpValue * d).toInt()
-//
-//            val va =
-//                if (isExpanded) ValueAnimator.ofInt(0, height) else ValueAnimator.ofInt(height, 0)
-//            va.duration = 600
-//            va.addUpdateListener { animation ->
-//                val value = animation.animatedValue as Int
-//                recyclerView.layoutParams.height = value
-//                recyclerView.requestLayout()
-//                recyclerView.visibility =
-//                    if (isExpanded) View.VISIBLE else View.GONE
-//            }
-//            va.start()
-//        }
     }
 }
