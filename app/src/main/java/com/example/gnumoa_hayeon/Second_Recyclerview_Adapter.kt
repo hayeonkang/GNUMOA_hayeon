@@ -28,6 +28,10 @@ class Second_Recyclerview_Adapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.title.text = item.title
+        holder.heart.setOnClickListener {
+            // Heart 버튼 클릭 이벤트 처리
+            holder.heart.setBackgroundResource(R.drawable.full_heart)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
