@@ -52,6 +52,4 @@ class MajorAdapter : RecyclerView.Adapter<MajorAdapter.MajorViewHolder>() {
     inner class MajorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val singlemajor = itemView.findViewById<TextView>(R.id.major_title) // 학과
     }
-
-
 }
