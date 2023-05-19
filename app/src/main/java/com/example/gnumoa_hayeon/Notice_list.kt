@@ -21,6 +21,5 @@ data class Notice_list(
     val baseUrl: String?=null,
     val fileUrls: HashMap<String, String>?=null,
     val html: String?=null,
-    val pos: Int?=null
 ) : Parcelable
 

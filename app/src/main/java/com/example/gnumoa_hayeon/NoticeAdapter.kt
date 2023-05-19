@@ -1,7 +1,9 @@
 package com.example.gnumoa_hayeon
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.gson.Gson
+import kotlin.math.log
 
 // : -> 상속
 // 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
@@ -152,6 +156,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         holder.category.text = noticeList.get(position).category
         holder.title.text = noticeList.get(position).title
         holder.context.text = getContextPreview(noticeList[position].context!!)
+        holder.getInit(noticeList.get(position).major!!,noticeList.get(position).title!!)
         holder.bind(noticeList[position])
 
 
@@ -170,6 +175,13 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         return noticeList.size
     }
 
+    fun serializeData(data: Any): String {
+        val gson = Gson()
+        return gson.toJson(data)
+    }
+
+
+
     //화면에 표시될 아이템 뷰 저장하는 객체
     //공지박스 하나가 한개의 Holder, 하나의 홀더 안에 들어갈 필드 값들 명시
     inner class NoticeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -180,19 +192,53 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val createdAt = itemView.findViewById<TextView>(R.id.tv_createdAt) // 날짜
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
 
+        fun getInit(major: String, title:String){
+            val ChangeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE)
+            val key = major + "_" + title
+            if (ChangeHeartInfo.contains(key)) {
+                heart.setImageResource(R.drawable.full_heart)
+            }
+        }
+
+
         fun bind(noticeItems: Notice_list) {
             heart.setOnClickListener {
+
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
-                if (noticeItems.heart){
+
+                val position = adapterPosition
+                val item = noticeList[position]
+
+                val key = item.major + "_" + item.title //key 값 이름
+                val ChangeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE) // HeartPost라는 딕셔너리? 생성
+                val HeartEditor = ChangeHeartInfo.edit()
+                val serializedData = serializeData(item) // 데이터 직렬화
+
+                //HeartEditor.clear() //일단 초기화
+
+                if (noticeItems.heart) {
                     heart.setImageResource(R.drawable.full_heart)
-                    val position = adapterPosition
-                    val item = noticeList[position]
-                    Log.d("item", "${item}")
-                }else{
+
+                    HeartEditor.putString(key, serializedData) // 데이터 저장
+                    Log.d("key", key)
+                    HeartEditor.apply()
+
+                    //val allEntries: Map<String, *> = ChangeHeartInfo.all
+                    //val dataSize = allEntries.size
+                    //Log.d("dataSize", dataSize.toString())
+
+
+                } else {
                     heart.setImageResource(R.drawable.empty_heart)
+                    HeartEditor.remove(key) // 데이터 삭제
+                    HeartEditor.apply()
+
+                    val allEntries: Map<String, *> = ChangeHeartInfo.all
+                    val dataSize = allEntries.size
+                    Log.d("dataSize", dataSize.toString())
+
                 }
             }
-
         }
     }
 }
