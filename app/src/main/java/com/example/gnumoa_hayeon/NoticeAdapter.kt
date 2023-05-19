@@ -2,6 +2,7 @@ package com.example.gnumoa_hayeon
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -180,13 +181,18 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
 
         fun bind(noticeItems: Notice_list) {
-            heart.setImageResource(
-                if (noticeItems.heart) R.drawable.full_heart else R.drawable.empty_heart
-            ) //하트 여부에 따라 이미지 변경
             heart.setOnClickListener {
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
-                notifyItemChanged(adapterPosition) //해당 아이템만 새로고침
+                if (noticeItems.heart){
+                    heart.setImageResource(R.drawable.full_heart)
+                    val position = adapterPosition
+                    val item = noticeList[position]
+                    Log.d("item", "${item}")
+                }else{
+                    heart.setImageResource(R.drawable.empty_heart)
+                }
             }
+
         }
     }
 }
