@@ -1,14 +1,14 @@
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gnumoa_hayeon.MajorActivity
 import com.example.gnumoa_hayeon.R
+import com.google.gson.Gson
 
 class Second_Recyclerview_Adapter(
     private val items: MutableList<MajorActivity.Recycler_item>
@@ -27,29 +27,65 @@ class Second_Recyclerview_Adapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.title.text = item.title
+        holder.title.text = items.get(position).title
 
-        var isHeartFilled = false // 초기 상태는 빈 하트로 설정합니다
-
-        holder.heart.setOnClickListener {
-            isHeartFilled = !isHeartFilled // 클릭할 때마다 상태를 토글합니다
-
-            val heartResource = if (isHeartFilled) {
-                R.drawable.full_heart // 상태에 따라 리소스를 선택합니다 (채워진 하트)
-            } else {
-                R.drawable.empty_heart // 상태에 따라 리소스를 선택합니다 (빈 하트)
-            }
-
-            holder.heart.setBackgroundResource(heartResource)
-        }
+        holder.getInit(items.get(position).title)
+        holder.bind(items[position], holder.heart)
     }
 
+    fun serializeData(data: Any): String {
+        val gson = Gson()
+        return gson.toJson(data)
+    }
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var imageView: ImageView = itemView.findViewById(R.id.no_image)
         var title: TextView = itemView.findViewById(R.id.cardview_title)
-        var heart: Button = itemView.findViewById(R.id.cardview_heart)
+        val heart: ImageButton = itemView.findViewById<ImageButton>(R.id.MajorHeart) // 관심목록
+
+
+        fun getInit(title:String){
+            val ChangeMajorInfo = itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+            val key = title
+            //Log.d("key",key)
+            if (ChangeMajorInfo.contains(key)) {
+                heart.setImageResource(R.drawable.full_heart)
+            }
+        }
+
+        fun bind(majorItems: MajorActivity.Recycler_item, HeartButton: ImageButton) {
+            HeartButton.setOnClickListener {
+                val item = majorItems
+
+                val ChangeMajorInfo = itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+                val MajorEditor = ChangeMajorInfo.edit()
+                val serializeData = serializeData(item)
+                val key = item.title
+
+                //MajorEditor.clear() //일단 초기화
+
+                if (ChangeMajorInfo.contains(key)) {
+                    heart.setImageResource(R.drawable.empty_heart)
+                    //Log.d("key", key)
+                    MajorEditor.remove(key) // 데이터 삭제
+                    MajorEditor.apply()
+
+                    val allEntries: Map<String, *> = ChangeMajorInfo.all
+                    val dataSize = allEntries.size
+                    //Log.d("dataSize", dataSize.toString())
+                }else{
+                    heart.setImageResource(R.drawable.full_heart)
+                    MajorEditor.putString(key,serializeData) // 데이터 추가
+                    //Log.d("key", key)
+                    //Log.d("serializeData", serializeData)
+                    MajorEditor.apply()
+
+                    val allEntries: Map<String, *> = ChangeMajorInfo.all
+                    val dataSize = allEntries.size
+                   // Log.d("dataSize", dataSize.toString())
+                }
+            }
+        }
     }
 }
