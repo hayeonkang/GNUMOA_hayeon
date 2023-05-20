@@ -24,10 +24,6 @@ import kotlin.math.log
 @SuppressLint("NotifyDataSetChanged")
 class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
-//    interface OnItemClickListener {
-//        fun onItemClick(item: Notice_list)
-//    }
-
     var noticeList: ArrayList<Notice_list> = arrayListOf()
 
     //요약 보여주기 - 공지 전체내용 중 일부(80자)만 가져옴
@@ -193,9 +189,9 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val heart = itemView.findViewById<ImageButton>(R.id.img_heart) // 관심목록
 
         fun getInit(major: String, title:String){
-            val ChangeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE)
+            val changeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE)
             val key = major + "_" + title
-            if (ChangeHeartInfo.contains(key)) {
+            if (changeHeartInfo.contains(key)) {
                 heart.setImageResource(R.drawable.full_heart)
             }
         }
@@ -210,30 +206,23 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 val item = noticeList[position]
 
                 val key = item.major + "_" + item.title //key 값 이름
-                val ChangeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE) // HeartPost라는 딕셔너리? 생성
-                val HeartEditor = ChangeHeartInfo.edit()
+                val changeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE) // HeartPost라는 딕셔너리? 생성
+                val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화
-
-                //HeartEditor.clear() //일단 초기화
 
                 if (noticeItems.heart) {
                     heart.setImageResource(R.drawable.full_heart)
 
-                    HeartEditor.putString(key, serializedData) // 데이터 저장
+                    heartEditor.putString(key, serializedData) // 데이터 저장
                     Log.d("key", key)
-                    HeartEditor.apply()
-
-                    //val allEntries: Map<String, *> = ChangeHeartInfo.all
-                    //val dataSize = allEntries.size
-                    //Log.d("dataSize", dataSize.toString())
-
+                    heartEditor.apply()
 
                 } else {
                     heart.setImageResource(R.drawable.empty_heart)
-                    HeartEditor.remove(key) // 데이터 삭제
-                    HeartEditor.apply()
+                    heartEditor.remove(key) // 데이터 삭제
+                    heartEditor.apply()
 
-                    val allEntries: Map<String, *> = ChangeHeartInfo.all
+                    val allEntries: Map<String, *> = changeHeartInfo.all
                     val dataSize = allEntries.size
                     Log.d("dataSize", dataSize.toString())
 

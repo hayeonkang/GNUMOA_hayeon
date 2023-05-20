@@ -13,8 +13,6 @@ import kotlin.collections.ArrayList
 
 class HeartAdapter(private val heartList: ArrayList<Notice_list>) : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
 
-//    var heartList : ArrayList<Notice_list> = arrayListOf()
-
     private fun getContextPreview(context: List<String>): String {
         if (context.isNotEmpty()) {
             val fullText = context[0]
@@ -59,13 +57,5 @@ class HeartAdapter(private val heartList: ArrayList<Notice_list>) : RecyclerView
         val heart: ImageButton = itemView.findViewById(R.id.img_heart) // 관심목록
     }
 
-//    init{
-//        val noticeAdapter = NoticeAdapter()
-//        for(heartItem in noticeAdapter.heartItems) {
-//            if(heartItem.heart)
-//                heartList.add(heartItem)
-//        }
-//        notifyDataSetChanged()
-//
-//    }
+
 }
