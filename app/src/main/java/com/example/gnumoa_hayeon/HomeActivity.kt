@@ -20,9 +20,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-
-
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)

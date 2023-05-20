@@ -1,5 +1,6 @@
 package com.example.gnumoa_hayeon
 
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +8,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
+import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
     private val heartList: MutableList<Notice_list> = mutableListOf()
@@ -20,6 +23,10 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         return ""
     }
 
+    private val changeHeartInfo = SharedDB.getInstance()
+    private val heartEditor = changeHeartInfo.edit()
+    private val allEntries: Map<String, *> = changeHeartInfo.all
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeartViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notice_list, parent, false)
         return HeartViewHolder(view)
@@ -30,7 +37,8 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         holder.category.text = heartList[position].category
         holder.title.text = heartList[position].title
         holder.context.text = getContextPreview(heartList[position].context!!)
-        heartList[position].heart.let { holder.heart.setImageResource(R.drawable.empty_heart) }
+        heartList[position].heart.let { holder.heart.setImageResource(R.drawable.full_heart) }
+//        holder.bind(heartList[position])
 
 
         // Firestore Timestamp 객체를 Date 객체로 변환
@@ -54,9 +62,32 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         val context: TextView = itemView.findViewById(R.id.tv_context) // 내용요약
         val createdAt: TextView = itemView.findViewById(R.id.tv_createdAt) // 날짜
         val heart: ImageButton = itemView.findViewById(R.id.img_heart) // 관심목록
+
+        init {
+            SharedDB.init(itemView.context)
+        }
+    }
+
+    private fun deserializeData(serializedData: String): Notice_list {
+        val gson = Gson()
+        return gson.fromJson(serializedData, Notice_list::class.java)
+    }
+
+    init {
+        for((_, value) in allEntries)  {
+            val serializedData = value as String
+            val item: Notice_list = deserializeData(serializedData)
+            heartList.add(item)
+        }
+        notifyDataSetChanged()
     }
 
 
-
-
 }
+
+
+
+
+
+
+

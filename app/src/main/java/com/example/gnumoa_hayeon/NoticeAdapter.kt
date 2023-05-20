@@ -22,6 +22,21 @@ import java.util.*
 import com.google.gson.Gson
 import kotlin.collections.ArrayList
 
+object SharedDB {
+    private lateinit var sharedPreferences: SharedPreferences
+
+    fun init(context: Context) {
+        sharedPreferences = context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE)
+    }
+
+    fun getInstance(): SharedPreferences {
+        if(!this::sharedPreferences.isInitialized) {
+            throw java.lang.IllegalStateException("SharedPreferencesSingleton is not initialized")
+        }
+        return sharedPreferences
+    }
+}
+
 // : -> 상속
 // 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
@@ -29,21 +44,6 @@ import kotlin.collections.ArrayList
 class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     var noticeList: ArrayList<Notice_list> = arrayListOf()
-
-    object SharedDB {
-        private lateinit var sharedPreferences: SharedPreferences
-
-        fun init(context: Context) {
-            sharedPreferences = context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE)
-        }
-
-        fun getInstance(): SharedPreferences {
-            if(!this::sharedPreferences.isInitialized) {
-                throw java.lang.IllegalStateException("SharedPreferencesSingleton is not initialized")
-            }
-            return sharedPreferences
-        }
-    }
 
     //요약 보여주기 - 공지 전체내용 중 일부(80자)만 가져옴
     //context가 null 또는 empty가 아니라면 fullText 값을 계산한 후 80자 이상인 경우 일부를 자르고 "..."을 붙입니다.
@@ -171,7 +171,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         holder.category.text = noticeList[position].category
         holder.title.text = noticeList[position].title
         holder.context.text = getContextPreview(noticeList[position].context!!)
-//        holder.getInit(noticeList[position].major!!, noticeList[position].title!!)
+        holder.getInit(noticeList[position].major!!, noticeList[position].title!!)
         holder.bind(noticeList[position])
 
 
@@ -205,18 +205,18 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         val createdAt: TextView = itemView.findViewById(R.id.tv_createdAt) // 날짜
         val heart: ImageButton = itemView.findViewById(R.id.img_heart) // 관심목록
 
-//        fun getInit(major: String, title:String){
-//            //SharedPreferences는 앱의 데이터를 키-값 쌍으로 저장하기 위한 인터페이스
-//            SharedDB.init(itemView.context)
-//            val changeHeartInfo = SharedDB.getInstance()
-//            val key = major + "_" + title
-//            if (changeHeartInfo.contains(key)) {
-//                heart.setImageResource(R.drawable.full_heart)
-//            }
-//        }
-
-//        val changeHeartInfo = itemView.context.getSharedPreferences("HeartPost", Context.MODE_PRIVATE) // "HeartPost"라는 이름의 SharedPreferences 인스턴스 생성
-//        val heartEditor = changeHeartInfo.edit() //SharedPreferences의 값을 수정하기 위한 객체 생성
+        init {
+            SharedDB.init(itemView.context)
+        }
+        val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
+        //하트 상태 고정시키는 함수
+        fun getInit(major: String, title:String){
+            //SharedPreferences는 앱의 데이터를 키-값 쌍으로 저장하기 위한 인터페이스
+            val key = major + "_" + title
+            if (changeHeartInfo.contains(key)) {
+                heart.setImageResource(R.drawable.full_heart)
+            }
+        }
 
         fun bind(noticeItems: Notice_list) {
             heart.setOnClickListener {
@@ -225,8 +225,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 val item = noticeList[adapterPosition]
 
                 val key = item.major + "_" + item.title //key 값 이름
-                SharedDB.init(itemView.context)
-                val changeHeartInfo = SharedDB.getInstance()
                 val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화->(키:값) 형태로 변환
 
