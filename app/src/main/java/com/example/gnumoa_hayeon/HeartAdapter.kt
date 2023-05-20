@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-class HeartAdapter(private val heartList: ArrayList<Notice_list>) : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
-
+class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
+    private val heartList: MutableList<Notice_list> = mutableListOf()
     private fun getContextPreview(context: List<String>): String {
         if (context.isNotEmpty()) {
             val fullText = context[0]
@@ -56,6 +55,8 @@ class HeartAdapter(private val heartList: ArrayList<Notice_list>) : RecyclerView
         val createdAt: TextView = itemView.findViewById(R.id.tv_createdAt) // 날짜
         val heart: ImageButton = itemView.findViewById(R.id.img_heart) // 관심목록
     }
+
+
 
 
 }
