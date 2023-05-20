@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gnumoa_hayeon.HeartMajor_list
+import com.example.gnumoa_hayeon.HeartMajorList
 import com.example.gnumoa_hayeon.MajorActivity
 import com.example.gnumoa_hayeon.R
 
 class Second_Recyclerview_Adapter(
     private val items: MutableList<MajorActivity.Recycler_item>,
-    private val heartMajorList: HeartMajor_list
+    private val heartMajorList: HeartMajorList
 ) : RecyclerView.Adapter<Second_Recyclerview_Adapter.ViewHolder>() {
     var context: Context? = null
 
