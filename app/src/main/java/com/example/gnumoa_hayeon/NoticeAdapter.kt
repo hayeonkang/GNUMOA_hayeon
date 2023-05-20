@@ -208,7 +208,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         init {
             SharedDB.init(itemView.context)
         }
-        val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
+        private val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
         //하트 상태 고정시키는 함수
         fun getInit(major: String, title:String){
             //SharedPreferences는 앱의 데이터를 키-값 쌍으로 저장하기 위한 인터페이스
@@ -233,13 +233,13 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
                     heartEditor.putString(key, serializedData) // 데이터 저장
                     heartEditor.apply()
-                    //Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
 
                 } else {
                     heart.setImageResource(R.drawable.empty_heart)
                     heartEditor.remove(key) // 데이터 삭제
                     heartEditor.apply()
-                    //Toast.makeText(itemView.context, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
 
                     val allEntries: Map<String, *> = changeHeartInfo.all
                     val dataSize = allEntries.size //저장소에 저장된 아이템 개수

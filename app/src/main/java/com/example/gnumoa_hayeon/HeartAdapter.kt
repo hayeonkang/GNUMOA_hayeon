@@ -1,11 +1,11 @@
 package com.example.gnumoa_hayeon
 
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.gson.Gson
@@ -37,8 +37,9 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         holder.category.text = heartList[position].category
         holder.title.text = heartList[position].title
         holder.context.text = getContextPreview(heartList[position].context!!)
-        heartList[position].heart.let { holder.heart.setImageResource(R.drawable.full_heart) }
+//        heartList[position].heart.let { holder.heart.setImageResource(R.drawable.full_heart) }
 //        holder.bind(heartList[position])
+
 
 
         // Firestore Timestamp 객체를 Date 객체로 변환
@@ -55,6 +56,8 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         return heartList.size
     }
 
+    private var heartVal: Boolean?= null
+
     inner class HeartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val major: TextView = itemView.findViewById(R.id.tv_major) // 학과
         val category: TextView = itemView.findViewById(R.id.tv_category) //카테고리
@@ -66,8 +69,23 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         init {
             SharedDB.init(itemView.context)
         }
+
+        fun heart_bind(heartValue: Boolean, key: String) {
+
+            heart.setOnClickListener {
+                if(heartValue) {
+                    heart.setImageResource(R.drawable.full_heart)
+                } else {
+                    heart.setImageResource(R.drawable.empty_heart)
+                    heartEditor.remove(key) // 데이터 삭제
+                    heartEditor.apply()
+                    Toast.makeText(itemView.context, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
+    //역질렬화
     private fun deserializeData(serializedData: String): Notice_list {
         val gson = Gson()
         return gson.fromJson(serializedData, Notice_list::class.java)
@@ -77,6 +95,8 @@ class HeartAdapter() : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         for((_, value) in allEntries)  {
             val serializedData = value as String
             val item: Notice_list = deserializeData(serializedData)
+            val key = item.major + "_" + item.title
+            heartVal = item.heart
             heartList.add(item)
         }
         notifyDataSetChanged()

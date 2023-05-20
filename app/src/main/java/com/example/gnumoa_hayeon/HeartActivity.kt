@@ -35,29 +35,5 @@ class HeartActivity : AppCompatActivity() {
         binding.rvNoticeListHeart.adapter = heartAdapter
         //아이템이 추가되거나 삭제되면 호출하여 변경 반영
         heartAdapter.notifyDataSetChanged()
-
-//        val heartDB = NoticeAdapter.SharedDB.getInstance()
-//        val heartItems: Map<String, *> = heartDB.all
-
-
-
-//        for((key,value) in heartItems) {
-//            val serializedData = value as String
-//            val item: Notice_list = deserializeData(serializedData)
-//            heartAdapter.addItem(item)
-//        }
-
     }
-
-    // 데이터 직렬화
-//    private fun serializeData(data: Any): String {
-//        val gson = Gson()
-//        return gson.toJson(data)
-//    }
-
-    // 데이터 역직렬화
-//    private fun deserializeData(serializedData: String): Notice_list {
-//        val gson = Gson()
-//        return gson.fromJson(serializedData, Notice_list::class.java)
-//    }
 }
