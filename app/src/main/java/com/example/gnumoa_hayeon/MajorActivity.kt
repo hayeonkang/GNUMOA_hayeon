@@ -189,10 +189,10 @@ class MajorActivity : AppCompatActivity() {
 
     // 리사이클러뷰 안 리사이클러뷰 아이템 구조
     class Recycler_item(val image: String, val title: String, val heart: Button?) {
-        init {
-            this.heart?.setOnClickListener {
-                heart?.setBackgroundResource(R.drawable.baseline_favorite_24)
-            }
-        }
+//        init {
+//            this.heart?.setOnClickListener {
+//                heart?.setBackgroundResource(R.drawable.baseline_favorite_24)
+//            }
+//        }
     }
 }
