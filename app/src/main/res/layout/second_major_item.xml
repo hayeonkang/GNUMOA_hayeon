@@ -59,16 +59,15 @@
             </LinearLayout>
 
 
-
             <ImageButton
-                android:id="@+id/MajorHeart"
-                android:layout_width="10dp"
-                android:layout_height="30dp"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="#CBFFFFFF"
-                android:src="@drawable/empty_heart"
-                android:visibility="visible" />
+                android:id="@+id/cardview_heart"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_margin="7dp"
+                android:layout_weight="0.35"
+                android:background="@drawable/empty_heart">
+
+            </ImageButton>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

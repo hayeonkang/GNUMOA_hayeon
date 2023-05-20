@@ -40,9 +40,6 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        db.collection("inmun").document("test").set(testData)
 
-
-
-
     }
 }
 
