@@ -1,12 +1,10 @@
 package com.example.gnumoa_hayeon
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -156,7 +154,7 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 val position= adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val clickedItem = noticeList[position]
-                    val intent = Intent(parent.context, DetailActivity::class.java)
+                    val intent = Intent(parent.context, NoticeDetailActivity::class.java)
                     intent.putExtra("data", clickedItem)
                     parent.context.startActivity(intent)
                 }

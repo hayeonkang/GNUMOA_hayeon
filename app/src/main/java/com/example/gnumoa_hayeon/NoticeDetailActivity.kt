@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class DetailActivity :AppCompatActivity() {
+class NoticeDetailActivity :AppCompatActivity() {
     private val binding by lazy {
         NoticeDetailBinding.inflate(layoutInflater)
     }
@@ -75,7 +75,7 @@ class DetailActivity :AppCompatActivity() {
             index++
         }
 
-        binding.fileUrls.apply {
+        binding.noticeFileUrls.apply {
             text = stringBuilder
             movementMethod = LinkMovementMethod.getInstance()
         }
@@ -84,7 +84,7 @@ class DetailActivity :AppCompatActivity() {
         //해당 url로 이동
         val url = data.baseUrl
 
-        binding.btnUrl.setOnClickListener {
+        binding.noticeBtnUrl.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
@@ -97,7 +97,7 @@ class DetailActivity :AppCompatActivity() {
             binding.noticeHtml.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
         }
 
-        binding.btnBack.setOnClickListener{
+        binding.noticeBtnBack.setOnClickListener{
             finish()
         }
 
