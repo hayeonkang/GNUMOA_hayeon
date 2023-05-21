@@ -17,6 +17,14 @@ class HeartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
+
+        binding.heartButton.setOnClickListener {
+            val intent =
+                Intent(this, HeartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.homeButton.setOnClickListener {
             val intent =
                 Intent(this, HomeActivity::class.java)
