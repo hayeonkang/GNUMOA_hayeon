@@ -9,6 +9,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 
 class Second_Recyclerview_Adapter(
@@ -44,12 +49,13 @@ class Second_Recyclerview_Adapter(
         //var imageView: ImageView = itemView.findViewById(R.id.no_image)
         var title: TextView = itemView.findViewById(R.id.cardview_title)
         var heart: AppCompatImageButton = itemView.findViewById(R.id.cardview_heart)
-        fun getInit(title:String){
-            val ChangeMajorInfo = itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+        fun getInit(title: String) {
+            val ChangeMajorInfo =
+                itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
             val key = title
             //Log.d("key",key)
             if (ChangeMajorInfo.contains(key)) {
-                heart.setImageResource(R.drawable.full_heart)
+                heart.setBackgroundResource(R.drawable.full_heart)
             }
         }
 
@@ -57,39 +63,54 @@ class Second_Recyclerview_Adapter(
             HeartButton.setOnClickListener {
                 val item = majorItems
 
-                val ChangeMajorInfo = itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+                val ChangeMajorInfo =
+                    itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
                 val MajorEditor = ChangeMajorInfo.edit()
                 val serializeData = serializeData(item)
-                val key = item.title
+                val nametitle = item.title
 
-                //MajorEditor.clear() //일단 초기화
+                val db = Firebase.firestore
 
-                if (ChangeMajorInfo.contains(key)) {
-                    heart.setImageResource(R.drawable.empty_heart)
-                    //Log.d("key", key)
-                    MajorEditor.remove(key) // 데이터 삭제
-                    MajorEditor.apply()
 
-                    val allEntries: Map<String, *> = ChangeMajorInfo.all
-                    val dataSize = allEntries.size
-                    //Log.d("dataSize", dataSize.toString())
-                }else{
-                    heart.setImageResource(R.drawable.full_heart)
-                    MajorEditor.putString(key,serializeData) // 데이터 추가
-                    //Log.d("key", key)
-                    //Log.d("serializeData", serializeData)
-                    MajorEditor.apply()
+                FirebaseMessaging.getInstance().token
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val token = task.result
+                            val tokenDocument = db.collection("Tokens").document(token)
+                            // 데이터 추가 또는 삭제 작업을 수행합니다.
+                            if (ChangeMajorInfo.contains(nametitle)) {
+                                heart.setBackgroundResource(R.drawable.empty_heart)
+                                MajorEditor.remove(nametitle)
+                                removeData(tokenDocument, nametitle)
+                            } else {
+                                heart.setBackgroundResource(R.drawable.full_heart)
+                                MajorEditor.putString(nametitle, serializeData)
+                                saveData(tokenDocument, nametitle, serializeData)
+                            }
 
-                    val allEntries: Map<String, *> = ChangeMajorInfo.all
-                    val dataSize = allEntries.size
-                    // Log.d("dataSize", dataSize.toString())
-                }
+                            MajorEditor.apply()
+                        }
+                    }
             }
         }
+        private fun removeData(document: DocumentReference, key: String) {
+            document.update(key, "")
+                .addOnSuccessListener {
+                    Log.d("FCM Token", "토큰과 MajorPost 값을 Firestore에서 삭제했습니다.")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("FCM Token", "Firestore에서 데이터 삭제 실패", e)
+                }
+        }
 
-
-
+        private fun saveData(document: DocumentReference, key: String, value: String) {
+            document.update(key, value)
+                .addOnSuccessListener {
+                    Log.d("FCM Token", "토큰과 MajorPost 값을 Firestore에 저장했습니다.")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("FCM Token", "Firestore에 데이터 저장 실패", e)
+                }
+        }
     }
-
-
 }
