@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import com.example.gnumoa_hayeon.databinding.ActivityMainBinding
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,15 +34,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        val db = Firebase.firestore
-//
-//        val testData = hashMapOf(
-//            "name" to "김희영",
-//            "age" to "22",
-//            "country" to "Korea"
-//        )
-//        db.collection("inmun").document("test").set(testData)
+        // Firebase Cloud Messaging 토큰 얻기
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val token = task.result
 
+                    // Firebase Firestore에 접근합니다.
+                    val db = Firebase.firestore
+
+                    // "Tokens" 컬렉션에 토큰 값을 가진 문서를 생성합니다.
+                    val tokenDocument = db.collection("Tokens").document(token).set(mapOf<String, Any>())
+                        .addOnSuccessListener {
+                            Log.d("FCM Token", "토큰을 Firestore에 저장했습니다.")
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("FCM Token", "Firestore에 토큰을 저장하는 데 실패했습니다.", exception)
+                        }
+                } else {
+                    Log.w("FCM Token", "토큰을 얻을 수 없습니다.")
+                }
+            }
     }
 }
 

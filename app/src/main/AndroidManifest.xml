@@ -14,6 +14,17 @@
         android:theme="@style/Theme.GNUMOA_hayeon"
         tools:targetApi="31">
 
+        <service
+            android:name="com.example.gnumoa_hayeon.getAlram"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".Second_Recyclerview_Adapter"
+            android:exported="false" />
         <activity
             android:name=".Major_RecyclerViewAdapter"
             android:exported="false" />
@@ -48,6 +59,11 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/push_icon">
+        </meta-data>
+
     </application>
 
 </manifest>

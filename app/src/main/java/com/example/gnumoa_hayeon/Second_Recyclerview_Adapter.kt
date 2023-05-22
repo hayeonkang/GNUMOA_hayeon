@@ -1,17 +1,13 @@
+package com.example.gnumoa_hayeon
+
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gnumoa_hayeon.HeartMajorList
-import com.example.gnumoa_hayeon.MajorActivity
-import com.example.gnumoa_hayeon.R
 
 class Second_Recyclerview_Adapter(
     private val items: MutableList<MajorActivity.Recycler_item>,

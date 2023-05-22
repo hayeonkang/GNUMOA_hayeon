@@ -5,8 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class HomeActivity : AppCompatActivity() {
@@ -36,6 +38,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             finish();
         }
+
+
 
         //리사이클러뷰 레이아웃 화면에 바인딩
         binding.rvNoticeList.layoutManager =

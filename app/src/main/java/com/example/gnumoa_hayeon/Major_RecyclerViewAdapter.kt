@@ -1,6 +1,5 @@
 package com.example.gnumoa_hayeon
 
-import Second_Recyclerview_Adapter
 import android.animation.ValueAnimator
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
