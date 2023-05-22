@@ -53,6 +53,10 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         return ""
     }
 
+    private val changeMajorInfo = SharedDB2.getInstance()
+    private val allEntries: Map<String, *> = changeMajorInfo.all
+
+
     private val db = FirebaseFirestore.getInstance()
 
     private val mainDocuments = listOf(
@@ -97,7 +101,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     )
 
     init {
-
         for (major in mainDocuments) {
             for (category in subCollections) {
 //                val bizRef = db.collection("biz").document(major).collection(category)

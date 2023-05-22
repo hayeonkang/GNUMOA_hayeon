@@ -1,12 +1,14 @@
 package com.example.gnumoa_hayeon
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentReference
@@ -16,6 +18,21 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 
+
+object SharedDB2 {
+    private lateinit var sharedPreferences: SharedPreferences
+
+    fun init(context: Context) {
+        sharedPreferences = context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+    }
+
+    fun getInstance(): SharedPreferences {
+        if(!this::sharedPreferences.isInitialized) {
+            throw java.lang.IllegalStateException("SharedPreferencesSingleton is not initialized")
+        }
+        return sharedPreferences
+    }
+}
 class Second_Recyclerview_Adapter(
     private val items: MutableList<MajorActivity.Recycler_item>,
     private val heartMajorList: HeartMajorList
@@ -49,9 +66,12 @@ class Second_Recyclerview_Adapter(
         //var imageView: ImageView = itemView.findViewById(R.id.no_image)
         var title: TextView = itemView.findViewById(R.id.cardview_title)
         var heart: AppCompatImageButton = itemView.findViewById(R.id.cardview_heart)
+
+        init {
+            SharedDB2.init(itemView.context)
+        }
+        private val ChangeMajorInfo: SharedPreferences = SharedDB2.getInstance()
         fun getInit(title: String) {
-            val ChangeMajorInfo =
-                itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
             val key = title
             //Log.d("key",key)
             if (ChangeMajorInfo.contains(key)) {
@@ -63,8 +83,6 @@ class Second_Recyclerview_Adapter(
             HeartButton.setOnClickListener {
                 val item = majorItems
 
-                val ChangeMajorInfo =
-                    itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
                 val MajorEditor = ChangeMajorInfo.edit()
                 val serializeData = serializeData(item)
                 val nametitle = item.title
@@ -95,9 +113,6 @@ class Second_Recyclerview_Adapter(
         }
         private fun removeData(document: DocumentReference, key: String) {
             document.update(key, "")
-                .addOnSuccessListener {
-                    Log.d("FCM Token", "토큰과 MajorPost 값을 Firestore에서 삭제했습니다.")
-                }
                 .addOnFailureListener { e ->
                     Log.w("FCM Token", "Firestore에서 데이터 삭제 실패", e)
                 }
@@ -105,9 +120,6 @@ class Second_Recyclerview_Adapter(
 
         private fun saveData(document: DocumentReference, key: String, value: String) {
             document.update(key, value)
-                .addOnSuccessListener {
-                    Log.d("FCM Token", "토큰과 MajorPost 값을 Firestore에 저장했습니다.")
-                }
                 .addOnFailureListener { e ->
                     Log.w("FCM Token", "Firestore에 데이터 저장 실패", e)
                 }
