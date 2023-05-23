@@ -13,11 +13,11 @@ class HomeActivity : AppCompatActivity() {
         ActivityHomeBinding.inflate(layoutInflater)
     }
 
-    val noticeAdapter = NoticeAdapter()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        lateinit var noticeAdapter: NoticeAdapter
 
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
@@ -47,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        noticeAdapter = NoticeAdapter(this) // NoticeAdapter 초기화
 
 
         //리사이클러뷰 레이아웃 화면에 바인딩
@@ -55,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
         binding.rvNoticeList.setHasFixedSize(true)
 
         //리사이클러뷰랑 뷰 정의해놓은 어댑터 연결
-        binding.rvNoticeList.adapter = NoticeAdapter()
+        binding.rvNoticeList.adapter = noticeAdapter
 
     }
 

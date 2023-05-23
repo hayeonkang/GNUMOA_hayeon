@@ -111,4 +111,3 @@ class Second_Recyclerview_Adapter(
             }
     }
 }
-
