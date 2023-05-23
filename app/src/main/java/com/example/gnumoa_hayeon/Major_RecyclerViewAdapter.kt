@@ -55,7 +55,7 @@ class Major_RecyclerViewAdapter(
 
         fun bind(item: MajorActivity.Recycler_item_out) {
             textView1.text = item.name
-            recyclerView.adapter = Second_Recyclerview_Adapter(item.items, HeartMajorList())
+            recyclerView.adapter = Second_Recyclerview_Adapter(item.items)
             changeVisibility(selectedItems[adapterPosition])
         }
 

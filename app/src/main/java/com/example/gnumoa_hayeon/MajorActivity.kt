@@ -29,7 +29,7 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "국어국문학과", null),
             Recycler_item("", "독어독문학과", null),
             Recycler_item("", "러시아학과", null),
-            Recycler_item("", "민속무용학과", null),
+//            Recycler_item("", "민속무용학과", null),
             Recycler_item("", "불어불문학과", null),
             Recycler_item("", "사학과", null),
             Recycler_item("", "중어중문학과", null),
@@ -68,25 +68,26 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "스마트유통물류학과", null)
         )))
         name.add(Recycler_item_out("공과대학", mutableListOf(
-            Recycler_item("", "건축공학부 건축공학전공", null),
-            Recycler_item("", "건축공학부 건축시스템공학전공", null),
+            Recycler_item("", "건축공학부", null),
+//            Recycler_item("", "건축공학부 건축공학전공", null),
+//            Recycler_item("", "건축공학부 건축시스템공학전공", null),
             Recycler_item("", "기계공학부", null),
             Recycler_item("", "나노·신소재공학부 고분자공학전공", null),
             Recycler_item("", "나노·신소재공학부 금속재료공학전공", null),
-            Recycler_item("", "나노·신소재공학부 세라믹공학전공", null),
+//            Recycler_item("", "나노·신소재공학부 세라믹공학전공", null),
             Recycler_item("", "산업시스템공학부", null),
             Recycler_item("", "항공우주및소프트웨어공학부", null),
             Recycler_item("", "건축학과", null),
             Recycler_item("", "도시공학과", null),
             Recycler_item("", "반도체공학과", null),
             Recycler_item("", "전기공학과", null),
-            Recycler_item("", "전자공학과", null),
+//            Recycler_item("", "전자공학과", null),
             Recycler_item("", "제어로봇공학과", null),
             Recycler_item("", "토목공학과", null),
             Recycler_item("", "화학공학과", null)
         )))
         name.add(Recycler_item_out("농업생명과학대학", mutableListOf(
-            Recycler_item("", "식품자원경제학과", null),
+//            Recycler_item("", "식품자원경제학과", null),
             Recycler_item("", "동물생명융합학부", null),
             Recycler_item("", "식품공학과", null),
             Recycler_item("", "원예과학부", null),
@@ -122,8 +123,9 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "체육교육과", null)
         )))
         name.add(Recycler_item_out("수의과대학", mutableListOf(
-            Recycler_item("", "수의학과", null),
-            Recycler_item("", "수의예과", null)
+            Recycler_item("", "수의과대학", null)
+//            Recycler_item("", "수의학과", null),
+//            Recycler_item("", "수의예과", null)
         )))
         name.add(Recycler_item_out("의과대학", mutableListOf(
             Recycler_item("", "의학과", null),
@@ -136,7 +138,7 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "해양수산경영대학", null),
             Recycler_item("", "미래산업융합학과", null),
             Recycler_item("", "양식생명과학과", null),
-            Recycler_item("", "해양경찰시스템학과", null),
+//            Recycler_item("", "해양경찰시스템학과", null),
             Recycler_item("", "기계시스템공학과", null),
             Recycler_item("", "스마트에너지기계공학과", null),
             Recycler_item("", "조선해양과학과", null),
