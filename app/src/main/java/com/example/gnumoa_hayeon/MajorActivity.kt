@@ -88,7 +88,7 @@ class MajorActivity : AppCompatActivity() {
         )))
         name.add(Recycler_item_out("농업생명과학대학", mutableListOf(
 //            Recycler_item("", "식품자원경제학과", null),
-            Recycler_item("", "동물생명융합학부", null),
+//            Recycler_item("", "동물생명융합학부", null),
             Recycler_item("", "식품공학과", null),
             Recycler_item("", "원예과학부", null),
             Recycler_item("", "축산과학부", null),
@@ -97,8 +97,8 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "스마트농산업학과", null),
             Recycler_item("", "식물의학과", null),
             Recycler_item("", "환경생명화학과", null),
-            Recycler_item("", "환경재료과학과", null),
-            Recycler_item("", "생물산업기계공학과", null),
+//            Recycler_item("", "환경재료과학과", null),
+//            Recycler_item("", "생물산업기계공학과", null),
             Recycler_item("", "지역시스템공학과", null)
         )))
         name.add(Recycler_item_out("법과대학", mutableListOf(
@@ -137,14 +137,14 @@ class MajorActivity : AppCompatActivity() {
         )))
         name.add(Recycler_item_out("해양과학대학", mutableListOf(
             Recycler_item("", "해양수산경영대학", null),
-            Recycler_item("", "미래산업융합학과", null),
+//            Recycler_item("", "미래산업융합학과", null),
             Recycler_item("", "양식생명과학과", null),
 //            Recycler_item("", "해양경찰시스템학과", null),
             Recycler_item("", "기계시스템공학과", null),
             Recycler_item("", "스마트에너지기계공학과", null),
             Recycler_item("", "조선해양과학과", null),
             Recycler_item("", "지능형통신공학과", null),
-            Recycler_item("", "해양식품공학과", null),
+//            Recycler_item("", "해양식품공학과", null),
             Recycler_item("", "해양토목공학과", null),
             Recycler_item("", "해양환경공학과", null)
         )))
@@ -158,7 +158,7 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "건설시스템공학과", null),
             Recycler_item("", "인테리어재료공학과", null),
             Recycler_item("", "조경학과", null),
-            Recycler_item("", "환경공학과", null),
+//            Recycler_item("", "환경공학과", null),
             Recycler_item("", "디자인비지니스학과", null)
         )))
         name.add(Recycler_item_out("융합기술공과대학", mutableListOf(
@@ -182,9 +182,20 @@ class MajorActivity : AppCompatActivity() {
         }
 
         binding.heartButton.setOnClickListener {
-            val intent = Intent(this, HeartActivity::class.java)
-            startActivity(intent)
-            finish()
+            SharedDB.init(this)
+            val changeHeartInfo = SharedDB.getInstance()
+            val allEntries: Map<String, *> = changeHeartInfo.all
+
+            if(allEntries.isEmpty()) {
+                val intent = Intent(this, Heart0Activity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent =
+                    Intent(this, HeartActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
@@ -196,6 +207,5 @@ class MajorActivity : AppCompatActivity() {
 //            this.heart?.setOnClickListener {
 //                heart?.setBackgroundResource(R.drawable.baseline_favorite_24)
 //            }
-//        }
     }
-}
+    }
