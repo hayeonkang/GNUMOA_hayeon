@@ -39,7 +39,7 @@ object SharedDB {
 // 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 @SuppressLint("NotifyDataSetChanged")
-class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
+class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     var noticeList: ArrayList<Notice_list> = arrayListOf()
 
@@ -53,25 +53,26 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         return ""
     }
 
+
     private val db = FirebaseFirestore.getInstance()
 
-    private val mainDocuments = listOf(
-        "accounting", "business", "industry", "mis", "smart", "trade",
-        "ab", "agrieng", "agronomy", "alc", "as", "foodsci", "fr", "hortic", "smartagro",
+    private val largeCollections = listOf(
+        "biz",
+        "cals",
         "cap",
-        //"archeng", "me", "polymer", "metals", "ise", "anse", "arch", "urban", "se", "el", "control", "civil", "chemeng",
-            //"civilinfra", "im", "landscape", "env", "design",
-        //"ls", "physics", "math", "foodnutri", "cloth", "stat", "pharmgine", "geology", "biomat", "chem", "cs", "cse",
-        "economics", "social", "socio", "psychology", "polisci", "pa",
-        "mm", "mecha", "cele", "energyeng", "car",
+        "ce",
+        "cee",
+        "cns",
+        "css",
+        "cte",
         "healthcare",
-        "engLiter", "engLang", "korea", "dokmun", "russia", "minsok", "france", "history", "china", "sophia", "hanmun",
+        "inmun",
         "law",
-        //"fba", "mirae", "sea", "maripoli", "gse", "smartam", "naoe", "ace", "seafood", "oce", "marenv",
+        "marsci",
         "mce",
         "medicine",
         "pharm",
-        "pedagogy", "korlan", "history", "englishedu", "ecedu", "ethics", "sed", "edjapan", "geoedu", "physed", "bioedu", "mathedu", "chemedu", "artedu", "musicedu", "physicaledu",
+        "sadae",
         "vet"
     )
 
@@ -95,184 +96,29 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         "행사-기타공지",
         "취업-상담"
     )
-
     init {
-
-        for (major in mainDocuments) {
-            for (category in subCollections) {
-                val bizRef = db.collection("biz").document(major).collection(category)
-                val calsRef = db.collection("cals").document(major).collection(category)
-                val capRef = db.collection("cap").document(major).collection(category)
-                //val ceRef = db.collection("ce").document(major).collection(category)
-                //val ceeRef = db.collection("cee").document(major).collection(category)
-                //val cnsRef = db.collection("cns").document(major).collection(category)
-                val cssRef = db.collection("css").document(major).collection(category)
-                val cteRef = db.collection("cte").document(major).collection(category)
-                val healthcareRef = db.collection("healthcare").document(major).collection(category)
-                val inmunRef = db.collection("inmun").document(major).collection(category)
-                val lawRef = db.collection("law").document(major).collection(category)
-                //val marsciRef = db.collection("marsci").document(major).collection(category)
-                val mceRef = db.collection("mce").document(major).collection(category)
-                val medicineRef = db.collection("medicine").document(major).collection(category)
-                val pharmRef = db.collection("pharm").document(major).collection(category)
-                val sadaeRef = db.collection("sadae").document(major).collection(category)
-                val vetRef = db.collection("vet").document(major).collection(category)
-
-                bizRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
+        val ChangeMajorInfo = context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+        val allKeys: Set<String> = ChangeMajorInfo.all.keys
+        for (largeCollection in largeCollections) {
+                for (key in allKeys) {
+                        for (category in subCollections) {
+                            val ref =
+                                db.collection(largeCollection).document(key).collection(category)
+                            ref.addSnapshotListener { querySnapshot, _ ->
+                                for (snapshot in querySnapshot!!.documents) {
+                                    val item = snapshot.toObject(Notice_list::class.java)
+                                    noticeList.add(item!!)
+                                }
+                                noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                                notifyDataSetChanged()
+                            }
+                        }
                     }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
                 }
-
-                calsRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                capRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-//                ceRef.addSnapshotListener { querySnapshot, _ ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                ceeRef.addSnapshotListener { querySnapshot, _ ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-//                cnsRef.addSnapshotListener { querySnapshot, _ ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-                cssRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                cteRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                healthcareRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                inmunRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                lawRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-//                marsciRef.addSnapshotListener { querySnapshot, _ ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-                mceRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                pharmRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                sadaeRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                vetRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-
-                medicineRef.addSnapshotListener { querySnapshot, _ ->
-                    for (snapshot in querySnapshot!!.documents) {
-                        val item = snapshot.toObject(Notice_list::class.java)
-                        noticeList.add(item!!)
-                    }
-                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                    notifyDataSetChanged()
-                }
-            }
         }
-    }
+
+
+
     //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳
     //NoticeViewHolder => view 홀더 정의하는 곳
 
@@ -280,11 +126,12 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     // 1. LayoutInflater를 통해 설계해둔 리스트를 view 변수안에 넣어서 생성
     // 2. NoticeViewHolder에 생성한 view를 전달하여 그 값을 리턴
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.notice_list, parent, false) //view 생성
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.notice_list, parent, false) //view 생성
         return NoticeViewHolder(view).apply {//뷰홀더에 뷰 전달
 
             itemView.setOnClickListener {
-                val position= adapterPosition
+                val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val clickedItem = noticeList[position]
                     val intent = Intent(parent.context, NoticeDetailActivity::class.java)
@@ -339,9 +186,11 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
         init {
             SharedDB.init(itemView.context)
         }
+
         private val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
+
         //하트 상태 고정시키는 함수
-        fun getInit(major: String, title:String){
+        fun getInit(major: String, title: String) {
             //SharedPreferences는 앱의 데이터를 키-값 쌍으로 저장하기 위한 인터페이스
             val key = major + "_" + title
             if (changeHeartInfo.contains(key)) {
@@ -354,12 +203,14 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
 
                 val item = noticeList[adapterPosition]
+
                 val key = item.major + "_" + item.title //key 값 이름
                 val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화->(키:값) 형태로 변환
 
                 if (noticeItems.heart) {
                     heart.setImageResource(R.drawable.full_heart)
+
                     heartEditor.putString(key, serializedData) // 데이터 저장
                     heartEditor.apply()
                     Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
@@ -377,4 +228,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
             }
         }
     }
+
+
 }
