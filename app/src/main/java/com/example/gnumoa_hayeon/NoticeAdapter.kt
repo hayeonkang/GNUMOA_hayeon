@@ -56,23 +56,23 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
     private val db = FirebaseFirestore.getInstance()
 
     private val mainDocuments = listOf(
-//        "accounting", "business", "industry", "mis", "smart", "trade",
-//        "ab", "agrieng", "agronomy", "alc", "as", "foodsci", "fr", "hortic", "smartagro",
-//        "cap",
-//        "archeng", "me", "polymer", "metals", "ise", "anse", "arch", "urban", "se", "el", "control", "civil", "chemeng",
-//            "civilinfra", "im", "landscape", "env", "design",
-//        "ls", "physics", "math", "foodnutri", "cloth", "stat", "pharmgine", "geology", "biomat", "chem", "cs", "cse"
-//        "economics", "social", "socio", "psychology", "polisci", "pa",
-//        "mm", "mecha", "cele", "energyeng", "car",
-//        "healthcare",
-//        "engLiter", "engLang", "korea", "dokmun", "russia", "minsok", "france", "history", "china", "sophia", "hanmun",
-//        "law",
-//        "fba", "mirae", "sea", "maripoli", "gse", "smartam", "naoe", "ace", "seafood", "oce", "marenv",
-//        "mce",
+        "accounting", "business", "industry", "mis", "smart", "trade",
+        "ab", "agrieng", "agronomy", "alc", "as", "foodsci", "fr", "hortic", "smartagro",
+        "cap",
+        //"archeng", "me", "polymer", "metals", "ise", "anse", "arch", "urban", "se", "el", "control", "civil", "chemeng",
+            //"civilinfra", "im", "landscape", "env", "design",
+        //"ls", "physics", "math", "foodnutri", "cloth", "stat", "pharmgine", "geology", "biomat", "chem", "cs", "cse",
+        "economics", "social", "socio", "psychology", "polisci", "pa",
+        "mm", "mecha", "cele", "energyeng", "car",
+        "healthcare",
+        "engLiter", "engLang", "korea", "dokmun", "russia", "minsok", "france", "history", "china", "sophia", "hanmun",
+        "law",
+        //"fba", "mirae", "sea", "maripoli", "gse", "smartam", "naoe", "ace", "seafood", "oce", "marenv",
+        "mce",
         "medicine",
-//        "pharm",
-//        "pedagogy", "korlan", "history", "englishedu", "ecedu", "ethics", "sed", "edjapan", "geoedu", "physed", "bioedu", "mathedu", "chemedu", "artedu", "musicedu", "physicaledu",
-//        "vet"
+        "pharm",
+        "pedagogy", "korlan", "history", "englishedu", "ecedu", "ethics", "sed", "edjapan", "geoedu", "physed", "bioedu", "mathedu", "chemedu", "artedu", "musicedu", "physicaledu",
+        "vet"
     )
 
     val subCollections = listOf(
@@ -100,23 +100,167 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
         for (major in mainDocuments) {
             for (category in subCollections) {
-//                val bizRef = db.collection("biz").document(major).collection(category)
-//                val calsRef = db.collection("cals").document(major).collection(category)
-//                val capRef = db.collection("cap").document(major).collection(category)
-//                val ceRef = db.collection("ce").document(major).collection(category)
-//                val ceeRef = db.collection("cee").document(major).collection(category)
-//                val cnsRef = db.collection("cns").document(major).collection(category)
-//                val cssRef = db.collection("css").document(major).collection(category)
-//                val cteRef = db.collection("cte").document(major).collection(category)
-//                val healthcareRef = db.collection("healthcare").document(major).collection(category)
-//                val inmunRef = db.collection("inmun").document(major).collection(category)
-//                val lawRef = db.collection("law").document(major).collection(category)
-//                val marsciRef = db.collection("marsci").document(major).collection(category)
-//                val mceRef = db.collection("mce").document(major).collection(category)
+                val bizRef = db.collection("biz").document(major).collection(category)
+                val calsRef = db.collection("cals").document(major).collection(category)
+                val capRef = db.collection("cap").document(major).collection(category)
+                //val ceRef = db.collection("ce").document(major).collection(category)
+                //val ceeRef = db.collection("cee").document(major).collection(category)
+                //val cnsRef = db.collection("cns").document(major).collection(category)
+                val cssRef = db.collection("css").document(major).collection(category)
+                val cteRef = db.collection("cte").document(major).collection(category)
+                val healthcareRef = db.collection("healthcare").document(major).collection(category)
+                val inmunRef = db.collection("inmun").document(major).collection(category)
+                val lawRef = db.collection("law").document(major).collection(category)
+                //val marsciRef = db.collection("marsci").document(major).collection(category)
+                val mceRef = db.collection("mce").document(major).collection(category)
                 val medicineRef = db.collection("medicine").document(major).collection(category)
-//                val pharmRef = db.collection("pharm").document(major).collection(category)
-//                val sadaeRef = db.collection("sadae").document(major).collection(category)
-//                val vetRef = db.collection("vet").document(major).collection(category)
+                val pharmRef = db.collection("pharm").document(major).collection(category)
+                val sadaeRef = db.collection("sadae").document(major).collection(category)
+                val vetRef = db.collection("vet").document(major).collection(category)
+
+                bizRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                calsRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                capRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+//                ceRef.addSnapshotListener { querySnapshot, _ ->
+//                    for (snapshot in querySnapshot!!.documents) {
+//                        val item = snapshot.toObject(Notice_list::class.java)
+//                        noticeList.add(item!!)
+//                    }
+//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+//                    notifyDataSetChanged()
+//                }
+
+//                ceeRef.addSnapshotListener { querySnapshot, _ ->
+//                    for (snapshot in querySnapshot!!.documents) {
+//                        val item = snapshot.toObject(Notice_list::class.java)
+//                        noticeList.add(item!!)
+//                    }
+//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+//                    notifyDataSetChanged()
+//                }
+
+//                cnsRef.addSnapshotListener { querySnapshot, _ ->
+//                    for (snapshot in querySnapshot!!.documents) {
+//                        val item = snapshot.toObject(Notice_list::class.java)
+//                        noticeList.add(item!!)
+//                    }
+//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+//                    notifyDataSetChanged()
+//                }
+
+                cssRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                cteRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                healthcareRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                inmunRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                lawRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+//                marsciRef.addSnapshotListener { querySnapshot, _ ->
+//                    for (snapshot in querySnapshot!!.documents) {
+//                        val item = snapshot.toObject(Notice_list::class.java)
+//                        noticeList.add(item!!)
+//                    }
+//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+//                    notifyDataSetChanged()
+//                }
+
+                mceRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                pharmRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                sadaeRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
+
+                vetRef.addSnapshotListener { querySnapshot, _ ->
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(Notice_list::class.java)
+                        noticeList.add(item!!)
+                    }
+                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                    notifyDataSetChanged()
+                }
 
                 medicineRef.addSnapshotListener { querySnapshot, _ ->
                     for (snapshot in querySnapshot!!.documents) {
@@ -126,17 +270,6 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                     noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
                     notifyDataSetChanged()
                 }
-
-//                calsRef.addSnapshotListener { querySnapshot, _ ->
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        val item = snapshot.toObject(Notice_list::class.java)
-//                        noticeList.add(item!!)
-//                    }
-//                    noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-//                    notifyDataSetChanged()
-//                }
-
-
             }
         }
     }

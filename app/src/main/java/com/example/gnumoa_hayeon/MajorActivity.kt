@@ -182,9 +182,20 @@ class MajorActivity : AppCompatActivity() {
         }
 
         binding.heartButton.setOnClickListener {
-            val intent = Intent(this, HeartActivity::class.java)
-            startActivity(intent)
-            finish()
+            SharedDB.init(this)
+            val changeHeartInfo = SharedDB.getInstance()
+            val allEntries: Map<String, *> = changeHeartInfo.all
+
+            if(allEntries.isEmpty()) {
+                val intent = Intent(this, Heart0Activity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent =
+                    Intent(this, HeartActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

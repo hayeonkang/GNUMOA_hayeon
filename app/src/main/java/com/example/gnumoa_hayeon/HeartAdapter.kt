@@ -117,7 +117,7 @@ class HeartAdapter : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
     }
 
     init {
-        for((key, value) in allEntries)  {
+        for((_, value) in allEntries)  {
             val serializedData = value as String
             val item: Notice_list = deserializeData(serializedData)
             heartList.add(item)
