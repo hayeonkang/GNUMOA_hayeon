@@ -57,23 +57,23 @@ class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeA
     private val db = FirebaseFirestore.getInstance()
 
     private val largeCollections = listOf(
-        "biz",
-        "cals",
-        "cap",
-        "ce",
-        "cee",
-        "cns",
-        "css",
-        "cte",
-        "healthcare",
-        "inmun",
-        "law",
-        "marsci",
-        "mce",
-        "medicine",
-        "pharm",
-        "sadae",
-        "vet"
+        "인문대학",
+        "사회과학대학",
+        "자연과학대학",
+        "경영대학",
+        "공과대학",
+        "농업생명과학대학",
+        "법과대학",
+        "사범대학",
+        "수의과대학",
+        "의과대학",
+        "간호대학",
+        "해양과학대학",
+        "약학대학",
+        "본부대학1",
+        "건설환경공과대학",
+        "융합기술공과대학",
+        "본부대학2"
     )
 
     val subCollections = listOf(
