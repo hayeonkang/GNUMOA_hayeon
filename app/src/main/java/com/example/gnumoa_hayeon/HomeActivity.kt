@@ -1,14 +1,11 @@
 package com.example.gnumoa_hayeon
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
-import com.google.firebase.messaging.FirebaseMessaging
+
 
 
 class HomeActivity : AppCompatActivity() {
