@@ -354,14 +354,12 @@ class NoticeAdapter : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
 
                 val item = noticeList[adapterPosition]
-
                 val key = item.major + "_" + item.title //key 값 이름
                 val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화->(키:값) 형태로 변환
 
                 if (noticeItems.heart) {
                     heart.setImageResource(R.drawable.full_heart)
-
                     heartEditor.putString(key, serializedData) // 데이터 저장
                     heartEditor.apply()
                     Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
