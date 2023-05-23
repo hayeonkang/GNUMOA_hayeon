@@ -102,7 +102,7 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "지역시스템공학과", null)
         )))
         name.add(Recycler_item_out("법과대학", mutableListOf(
-            Recycler_item("", "법학과", null)
+            Recycler_item("", "법과대학", null)
         )))
         name.add(Recycler_item_out("사범대학", mutableListOf(
             Recycler_item("", "교육학과", null),
@@ -111,7 +111,7 @@ class MajorActivity : AppCompatActivity() {
             Recycler_item("", "영어교육과", null),
             Recycler_item("", "유아교육과", null),
             Recycler_item("", "윤리교육과", null),
-            Recycler_item("", "일반사회 교육과", null),
+            Recycler_item("", "일반사회교육과", null),
             Recycler_item("", "일어교육과", null),
             Recycler_item("", "지리교육과", null),
             Recycler_item("", "물리교육과", null),
@@ -128,8 +128,9 @@ class MajorActivity : AppCompatActivity() {
 //            Recycler_item("", "수의예과", null)
         )))
         name.add(Recycler_item_out("의과대학", mutableListOf(
-            Recycler_item("", "의학과", null),
-            Recycler_item("", "의예과", null)
+            Recycler_item("", "의과대학", null)
+//            Recycler_item("", "의학과", null),
+//            Recycler_item("", "의예과", null)
         )))
         name.add(Recycler_item_out("간호대학", mutableListOf(
             Recycler_item("", "간호대학", null)
