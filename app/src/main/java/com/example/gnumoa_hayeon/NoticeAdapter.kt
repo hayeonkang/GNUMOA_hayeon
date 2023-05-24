@@ -195,6 +195,8 @@ class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeA
             val key = major + "_" + title
             if (changeHeartInfo.contains(key)) {
                 heart.setImageResource(R.drawable.full_heart)
+            }else{
+                heart.setImageResource(R.drawable.empty_heart)
             }
         }
 
@@ -210,6 +212,7 @@ class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeA
 
                 if (noticeItems.heart) {
                     heart.setImageResource(R.drawable.full_heart)
+                    Log.d("noticeItems", noticeItems.heart.toString())
 
                     heartEditor.putString(key, serializedData) // 데이터 저장
                     heartEditor.apply()

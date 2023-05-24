@@ -37,7 +37,7 @@ class Second_Recyclerview_Adapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = items.get(position).title
-        holder.getInit(items.get(position).title)
+        holder.getInit(items.get(position).title, holder.heart)
         holder.bind(items[position], holder.heart)
     }
 
@@ -51,15 +51,14 @@ class Second_Recyclerview_Adapter(
         //var imageView: ImageView = itemView.findViewById(R.id.no_image)
         var title: TextView = itemView.findViewById(R.id.cardview_title)
         var heart: ImageButton = itemView.findViewById(R.id.cardview_heart)
-        val ChangeMajorInfo =
-            itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+        val ChangeMajorInfo: SharedPreferences = itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
 
-        fun getInit(title: String) {
-//            val ChangeMajorInfo =
-//                itemView.context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+        fun getInit(title: String, HeartButton: ImageButton) {
             val key = title
             if (ChangeMajorInfo.contains(key)) {
-                heart.setBackgroundResource(R.drawable.full_heart)
+                HeartButton.setBackgroundResource(R.drawable.full_heart)
+            }else{
+                HeartButton.setBackgroundResource(R.drawable.empty_heart)
             }
         }
 
@@ -83,12 +82,12 @@ class Second_Recyclerview_Adapter(
                             if (ChangeMajorInfo.contains(nametitle)) {
                                 MajorEditor.remove(nametitle)
                                 removeData(tokenDocument, nametitle)
-                                heart.setBackgroundResource(R.drawable.empty_heart)
+                                HeartButton.setBackgroundResource(R.drawable.empty_heart)
                                 Toast.makeText(itemView.context, "해당 학과의 공지를 홈 화면에서 삭제합니다.", Toast.LENGTH_SHORT).show()
                             } else {
                                 MajorEditor.putString(nametitle, serializeData)
                                 saveData(tokenDocument, nametitle, serializeData)
-                                heart.setBackgroundResource(R.drawable.full_heart)
+                                HeartButton.setBackgroundResource(R.drawable.full_heart)
                                 Toast.makeText(itemView.context, "해당 학과의 공지를 홈 화면에 추가합니다.", Toast.LENGTH_SHORT).show()
                             }
                             MajorEditor.apply()
