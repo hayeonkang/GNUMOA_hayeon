@@ -1,13 +1,11 @@
 package com.example.gnumoa_hayeon
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 
 
@@ -15,12 +13,15 @@ class HomeActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
     }
+    private val db = FirebaseFirestore.getInstance()
 
-    private lateinit var noticeAdapter: NoticeAdapter // NoticeAdapter 멤버 변수 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        lateinit var noticeAdapter: NoticeAdapter
+
 
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
@@ -51,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         noticeAdapter = NoticeAdapter(this) // NoticeAdapter 초기화
+
 
         //리사이클러뷰 레이아웃 화면에 바인딩
         binding.rvNoticeList.layoutManager =

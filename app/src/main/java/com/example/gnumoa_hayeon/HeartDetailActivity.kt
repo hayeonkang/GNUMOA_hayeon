@@ -12,6 +12,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gnumoa_hayeon.databinding.HeartDetailBinding
+import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -25,28 +26,24 @@ class HeartDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val heartData = intent.getParcelableExtra<Notice_list>("data")
+        val heartData = intent.getParcelableExtra<Notice_list>("heart_data")
 
         // Firestore Timestamp 객체를 Date 객체로 변환
-        val timestamp = heartData?.createdAt
-        val date = timestamp?.toDate()
+        val timestamp = heartData!!.createdAt as Timestamp
+        val date = timestamp.toDate()
 
         // SimpleDateFormat을 사용하여 원하는 형식으로 포맷팅
         val sdf = SimpleDateFormat("yy / MM / dd", Locale.getDefault())
 
-        if (heartData != null) {
-            binding.heartTitle.text = heartData.title
-        }
-        if (heartData != null) {
-            binding.heartCategory.text = heartData.category
-        }
-        if (heartData != null) {
-            binding.heartMajor.text = heartData.major
-        }
-        binding.heartDate.text = date?.let { sdf.format(it) }
+
+        binding.heartTitle.text = heartData.title
+        binding.heartCategory.text = heartData.category
+        binding.heartMajor.text = heartData.major
+        binding.heartDate.text = sdf.format(date)
 
         //hashmap 형태 파일 나타내기+텍스트뷰 하이퍼링크 처리
-        val files = heartData?.fileUrls as HashMap<String, String>
+        val files = heartData.fileUrls as HashMap<String, String>
+        //val files = heartData?.fileUrls ?: hashMapOf()
         val stringBuilder = SpannableStringBuilder()
         var index = 1
 

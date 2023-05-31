@@ -1,7 +1,9 @@
 package com.example.gnumoa_hayeon
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,14 +56,6 @@ class HeartAdapter : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
         holder.getInit(heartList[position].major!!, heartList[position].title!!)
         holder.heartBind(heartList[position])
 
-//        for((_, value) in allEntries) {
-//            val serializedData = value as String
-//            val item: Notice_list = deserializeData(serializedData)
-//            val key = item.major + "_" + item.title
-//            heartVal = item.heart
-//            holder.heart_bind(heartVal!!, key)
-//        }
-
         // Firestore Timestamp 객체를 Date 객체로 변환
         val timestamp = heartList[position].createdAt as Timestamp
         val date = timestamp.toDate()
@@ -96,19 +90,6 @@ class HeartAdapter : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
             }
         }
 
-//        fun heart_bind(heartValue: Boolean, key: String) {
-//            heart.setOnClickListener {
-//                if(heartValue) {
-//                    heart.setImageResource(R.drawable.full_heart)
-//                } else {
-//                    heart.setImageResource(R.drawable.empty_heart)
-//                    heartEditor.remove(key) // 데이터 삭제
-//                    heartEditor.apply()
-//                    Toast.makeText(itemView.context, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-
         fun heartBind(noticeItems: Notice_list) {
             heart.setOnClickListener {
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
@@ -141,6 +122,7 @@ class HeartAdapter : RecyclerView.Adapter<HeartAdapter.HeartViewHolder>() {
             val item: Notice_list = deserializeData(serializedData)
             heartList.add(item)
         }
+        heartList.sortByDescending { it.createdAt }
         notifyDataSetChanged()
     }
 

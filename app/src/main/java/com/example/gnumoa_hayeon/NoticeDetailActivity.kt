@@ -75,7 +75,7 @@ class NoticeDetailActivity :AppCompatActivity() {
             index++
         }
 
-        binding.noticeFileUrls.apply {
+        binding.fileUrls.apply {
             text = stringBuilder
             movementMethod = LinkMovementMethod.getInstance()
         }
@@ -84,7 +84,7 @@ class NoticeDetailActivity :AppCompatActivity() {
         //해당 url로 이동
         val url = data.baseUrl
 
-        binding.noticeBtnUrl.setOnClickListener {
+        binding.btnUrl.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
@@ -97,8 +97,12 @@ class NoticeDetailActivity :AppCompatActivity() {
             binding.noticeHtml.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
         }
 
-        binding.noticeBtnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener{
             finish()
+        }
+
+        binding.noticeHeart.setOnClickListener {
+
         }
 
     }

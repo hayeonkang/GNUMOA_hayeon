@@ -103,8 +103,9 @@ class Second_Recyclerview_Adapter(
 
     private fun saveData(document: DocumentReference, key: String, value: String) {
         document.update(key, value)
-            .addOnFailureListener { e ->
-                Log.w("FCM Token", "Firestore에 데이터 저장 실패", e)
+            .addOnFailureListener {
+                val data = hashMapOf(key to value)
+                document.set(data)
             }
     }
 }

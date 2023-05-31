@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
-            android:id="@+id/noticeDetail_heart"
+            android:id="@+id/notice_heart"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="40dp"
@@ -52,8 +52,8 @@
             app:layout_constraintBottom_toTopOf="@+id/notice_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/heart_major"
-            app:layout_constraintTop_toBottomOf="@+id/heart_category"
+            app:layout_constraintStart_toStartOf="@+id/notice_major"
+            app:layout_constraintTop_toBottomOf="@+id/notice_category"
             app:layout_constraintVertical_bias="0.006">
 
             <WebView
@@ -75,7 +75,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notice_btn_url" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_url" />
 
         <TextView
             android:id="@+id/notice_major"
@@ -116,7 +116,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
-            android:id="@+id/notice_btn_back"
+            android:id="@+id/btn_back"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
@@ -124,19 +124,19 @@
             android:padding="0sp"
             android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/noticeDetail_heart"
+            app:layout_constraintTop_toTopOf="@+id/notice_heart"
             app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
         <ImageButton
-            android:id="@+id/notice_btn_url"
+            android:id="@+id/btn_url"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="16dp"
             android:background="#FFFFFF"
             android:padding="0sp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toStartOf="@+id/noticeDetail_heart"
-            app:layout_constraintTop_toTopOf="@+id/noticeDetail_heart"
+            app:layout_constraintEnd_toStartOf="@+id/notice_heart"
+            app:layout_constraintTop_toTopOf="@+id/notice_heart"
             app:srcCompat="@drawable/url" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <ImageButton
-            android:id="@+id/notice_btn_file"
+            android:id="@+id/btn_file"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
@@ -173,8 +173,8 @@
             android:layout_marginStart="4dp"
             android:text="첨부파일"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/notice_btn_file"
-            app:layout_constraintTop_toTopOf="@+id/notice_btn_file" />
+            app:layout_constraintStart_toEndOf="@+id/btn_file"
+            app:layout_constraintTop_toTopOf="@+id/btn_file" />
 
         <ScrollView
             android:id="@+id/file_scroll"
@@ -190,7 +190,7 @@
             app:layout_constraintTop_toBottomOf="@+id/notice_file">
 
             <TextView
-                android:id="@+id/notice_fileUrls"
+                android:id="@+id/fileUrls"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
