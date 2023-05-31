@@ -1,5 +1,6 @@
 package com.example.gnumoa_hayeon
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,9 +17,20 @@ class Heart0Activity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.homeButton.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish();
+            val changeMajorInfo = getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+
+            val allEntries: Map<String, *> = changeMajorInfo.all
+
+            if (allEntries.isEmpty()) {
+                val intent = Intent(this, Home0Activity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent =
+                    Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)

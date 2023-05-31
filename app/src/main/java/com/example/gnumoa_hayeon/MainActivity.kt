@@ -1,5 +1,6 @@
 package com.example.gnumoa_hayeon
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,16 +19,46 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var handler = Handler()
         handler.postDelayed({
-            var intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+//            var intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+            val changeMajorInfo = getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+
+            val allEntries: Map<String, *> = changeMajorInfo.all
+
+            if (allEntries.isEmpty()) {
+                val intent = Intent(this, Home0Activity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent =
+                    Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }, 3000)
+
+
+//        val changeMajorInfo = getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
+//
+//        val allEntries: Map<String, *> = changeMajorInfo.all
+//
+//        if (allEntries.isEmpty()) {
+//            val intent = Intent(this, Home0Activity::class.java)
+//            startActivity(intent)
+//            finish()
+//        } else {
+//            val intent =
+//                Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
         setContentView(binding.root)
 
-        binding.imageButton.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.imageButton.setOnClickListener {
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 }
 
