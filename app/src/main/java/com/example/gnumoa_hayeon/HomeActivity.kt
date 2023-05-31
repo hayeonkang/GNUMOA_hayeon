@@ -28,11 +28,11 @@ class HomeActivity : AppCompatActivity() {
             finish();
         }
 
-        binding.homeButton.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish();
-        }
+//        binding.homeButton.setOnClickListener {
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            finish();
+//        }
         binding.heartButton.setOnClickListener {
             SharedDB.init(this)
             val changeHeartInfo = SharedDB.getInstance()
