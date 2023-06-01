@@ -1,6 +1,7 @@
 package com.example.gnumoa_hayeon
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -9,10 +10,13 @@ import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gnumoa_hayeon.databinding.NoticeDetailBinding
 import com.google.firebase.Timestamp
+import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -80,7 +84,6 @@ class NoticeDetailActivity :AppCompatActivity() {
             movementMethod = LinkMovementMethod.getInstance()
         }
 
-
         //해당 url로 이동
         val url = data.baseUrl
 
@@ -102,9 +105,52 @@ class NoticeDetailActivity :AppCompatActivity() {
         }
 
         binding.noticeHeart.setOnClickListener {
-
         }
 
-    }
+        SharedDB.init(this)
 
+        val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
+
+
+        //SharedPreferences는 앱의 데이터를 키-값 쌍으로 저장하기 위한 인터페이스
+        val key = data.major + "_" + data.title
+        if (changeHeartInfo.contains(key)) {
+            binding.noticeHeart.setImageResource(R.drawable.full_heart)
+        }else{
+            binding.noticeHeart.setImageResource(R.drawable.empty_heart)
+        }
+
+        fun serializeData(data: Any): String {
+            val gson = Gson()
+            return gson.toJson(data) //JSON 형식의 문자열로 변환
+        }
+
+
+        binding.noticeHeart.setOnClickListener {
+            data.heart = !data.heart //하트 상태 변경
+
+            val key = data.major + "_" + data.title //key 값 이름
+            val heartEditor = changeHeartInfo.edit()
+            val serializedData = serializeData(data) // 데이터 직렬화->(키:값) 형태로 변환
+
+            if(changeHeartInfo.contains(key)){
+                binding.noticeHeart.setImageResource(R.drawable.empty_heart)
+                heartEditor.remove(key) // 데이터 삭제
+                heartEditor.apply()
+                Toast.makeText(this, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+
+                val allEntries: Map<String, *> = changeHeartInfo.all
+                val dataSize = allEntries.size //저장소에 저장된 아이템 개수
+                Log.d("dataSize", dataSize.toString())
+            }else{
+                binding.noticeHeart.setImageResource(R.drawable.full_heart)
+                Log.d("noticeItems", data.heart.toString())
+
+                heartEditor.putString(key, serializedData) // 데이터 저장
+                heartEditor.apply()
+                Toast.makeText(this, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
+

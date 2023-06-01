@@ -40,7 +40,7 @@ object SharedDB {
 // 1. Notice_list 데이터 클래스를 들고와서 ArrayList로 리스트화 시킨 것을 noticeList 변수에 넣음
 // 2. 리사이클러뷰에 있는 어댑터 속성 가져오기
 @SuppressLint("NotifyDataSetChanged")
-class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
+class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     var noticeList: ArrayList<Notice_list> = arrayListOf()
 
@@ -53,7 +53,6 @@ class NoticeAdapter(private val context: Context) : RecyclerView.Adapter<NoticeA
         }
         return ""
     }
-
 
     private val db = FirebaseFirestore.getInstance()
 

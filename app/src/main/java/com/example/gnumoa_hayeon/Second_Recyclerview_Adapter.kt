@@ -109,5 +109,5 @@ class Second_Recyclerview_Adapter(
                 val data = hashMapOf(key to value)
                 document.set(data)
             }
-    }
+     }
 }
