@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gnumoa_hayeon.databinding.ActivityHomeBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
+
 
 class HomeActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
     }
+    private val db = FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +26,13 @@ class HomeActivity : AppCompatActivity() {
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
-            finish()
+            finish();
         }
 
         binding.homeButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            finish()
+            finish();
         }
         binding.heartButton.setOnClickListener {
             SharedDB.init(this)

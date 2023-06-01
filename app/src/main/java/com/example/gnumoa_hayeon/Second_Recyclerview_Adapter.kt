@@ -2,7 +2,6 @@ package com.example.gnumoa_hayeon
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build.VERSION_CODES.M
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -105,9 +103,8 @@ class Second_Recyclerview_Adapter(
 
     private fun saveData(document: DocumentReference, key: String, value: String) {
         document.update(key, value)
-            .addOnFailureListener {
-                val data = hashMapOf(key to value)
-                document.set(data)
+            .addOnFailureListener { e ->
+                Log.w("FCM Token", "Firestore에 데이터 저장 실패", e)
             }
      }
 }

@@ -18,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 import com.google.gson.Gson
-import org.json.JSONObject
 import kotlin.collections.ArrayList
 
 object SharedDB {
@@ -57,23 +56,23 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
     private val db = FirebaseFirestore.getInstance()
 
     private val largeCollections = listOf(
-        "인문대학",
-        "사회과학대학",
-        "자연과학대학",
+        "간호대학",
+        "건설환경공과대학",
         "경영대학",
         "공과대학",
         "농업생명과학대학",
         "법과대학",
-        "사범대학",
-        "수의과대학",
-        "의과대학",
-        "간호대학",
-        "해양과학대학",
-        "약학대학",
         "본부대학1",
-        "건설환경공과대학",
+        "본부대학2",
+        "사범대학",
+        "사회과학대학",
+        "수의과대학",
+        "약학대학",
         "융합기술공과대학",
-        "본부대학2"
+        "의과대학",
+        "인문대학",
+        "자연과학대학",
+        "해양과학대학"
     )
 
     val subCollections = listOf(
@@ -96,27 +95,146 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
         "행사-기타공지",
         "취업-상담"
     )
+//    val majorCollection = listOf(
+//        "간호대학",
+//        "건설시스템공학과",
+//        "디자인비즈니스학과",
+//        "인테리어재료공학과",
+//        "조경학과",
+//        "경영정보학과",
+//        "경영학부",
+//        "국제통상학부",
+//        "산업경영학과",
+//        "스마트유통물류학과",
+//        "회계세무학부",
+//        "건축공학부",
+//        "건축학과",
+//        "기계공학부",
+//        "나노·신소재공학부 고분자공학전공",
+//        "나노·신소재공학부 금속재료공학전공",
+//        "도시공학과",
+//        "반도체공학과 산업시스템공학부",
+//        "전기공학과",
+//        "제어로봇공학과",
+//        "토목공학과",
+//        "항공우주및소프트웨어공학부",
+//        "화학공학과",
+//        "농학과",
+//        "스마트농산업학과",
+//        "식물의학과",
+//        "식품공학부",
+//        "원예과학부",
+//        "지역시스템공학과",
+//        "축산과학부",
+//        "환경산림과학부",
+//        "환경생명화학과",
+//        "법과대학",
+//        "기계융합공학과",
+//        "휴먼헬스케어학과",
+//        "교육학과",
+//        "국어교육과",
+//        "물리교육과",
+//        "생물교육과",
+//        "수학교육과",
+//        "영어교육과",
+//        "유아교육과",
+//        "일반사회교육과",
+//        "일어교육과",
+//        "지리교육과",
+//        "화학교육과",
+//        "경제학부",
+//        "사회복지학부",
+//        "사회학과",
+//        "심리학과",
+//        "아동가족학과",
+//        "정치외교학과",
+//        "행정학과",
+//        "수의과대학",
+//        "약학대학",
+//        "기계소재융합공학부",
+//        "메카트로닉스공학부",
+//        "미래자동차공학과",
+//        "에너지공학과",
+//        "융합전자공학부",
+//        "의과대학",
+//        "국어국문학과",
+//        "독어독문학과",
+//        "러시아학과",
+//        "불어불문학과",
+//        "사학과",
+//        "영어영문학부 영어영문학전공",
+//        "영어영문학부 영어전공",
+//        "중어중문학과",
+//        "철학과",
+//        "한문학과",
+//        "물리학과",
+//        "생명과학부",
+//        "수학과",
+//        "식품영양학과",
+//        "의류학과",
+//        "정보통계학과",
+//        "제약공학과",
+//        "지질과학과",
+//        "컴퓨터과학부 컴퓨터과학전공",
+//        "컴퓨터과학부 컴퓨터소프트웨어전공",
+//        "항노화신소재과학과",
+//        "화학과",
+//        "기계시스템공학과",
+//        "스마트에너지기계공학과",
+//        "양식생명과학과",
+//        "조선해양공학과",
+//        "조선해양과학과",
+//        "지능형통신공학과",
+//        "해양수산경영학과",
+//        "해양토목공학과",
+//        "해양환경공학과"
+//    )
+
     init {
         val ChangeMajorInfo = context.getSharedPreferences("MajorPost", Context.MODE_PRIVATE)
         val allKeys: Set<String> = ChangeMajorInfo.all.keys
-        for (largeCollection in largeCollections) {
-            for (key in allKeys) {
-                for (category in subCollections) {
-                    val ref =
-                        db.collection(largeCollection).document(key).collection(category)
-                    ref.addSnapshotListener { querySnapshot, _ ->
-                        for (snapshot in querySnapshot!!.documents) {
-                            val item = snapshot.toObject(Notice_list::class.java)
-                            noticeList.add(item!!)
+        if (allKeys.isNotEmpty()) {
+            for (largeCollection in largeCollections) {
+                for (key in allKeys) {
+                    for (category in subCollections) {
+                        val ref =
+                            db.collection(largeCollection).document(key).collection(category)
+                        ref.addSnapshotListener { querySnapshot, _ ->
+                            if (querySnapshot != null) {
+                                for (snapshot in querySnapshot.documents) {
+                                    val item = snapshot.toObject(Notice_list::class.java)
+                                    noticeList.add(item!!)
+                                }
+                                noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+                                notifyDataSetChanged()
+                            }
                         }
-                        noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
-                        notifyDataSetChanged()
+
                     }
                 }
             }
         }
+//        else {
+//            for (largeCollection in largeCollections) {
+//                for (key in majorCollection) {
+//                    for (category in subCollections) {
+//                        val ref =
+//                            db.collection(largeCollection).document(key).collection(category)
+//                        ref.addSnapshotListener { querySnapshot, _ ->
+//                            if (querySnapshot != null) {
+//                                for (snapshot in querySnapshot.documents) {
+//                                    val item = snapshot.toObject(Notice_list::class.java)
+//                                    noticeList.add(item!!)
+//                                }
+//                                noticeList.sortByDescending { it.createdAt } // createdAt 필드를 기준으로 내림차순 정렬
+//                                notifyDataSetChanged()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
-
 
 
     //onCreateViewHolder, onBindViewHolder, getItemCount() => view 홀더가 생성되는 곳
@@ -195,7 +313,7 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
             val key = major + "_" + title
             if (changeHeartInfo.contains(key)) {
                 heart.setImageResource(R.drawable.full_heart)
-            }else{
+            } else {
                 heart.setImageResource(R.drawable.empty_heart)
             }
         }
@@ -210,7 +328,14 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
                 val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화->(키:값) 형태로 변환
 
-                if(changeHeartInfo.contains(key)){
+                if (noticeItems.heart) {
+                    heart.setImageResource(R.drawable.full_heart)
+
+                    heartEditor.putString(key, serializedData) // 데이터 저장
+                    heartEditor.apply()
+                    Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+
+                } else {
                     heart.setImageResource(R.drawable.empty_heart)
                     heartEditor.remove(key) // 데이터 삭제
                     heartEditor.apply()
@@ -219,17 +344,8 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
                     val allEntries: Map<String, *> = changeHeartInfo.all
                     val dataSize = allEntries.size //저장소에 저장된 아이템 개수
                     Log.d("dataSize", dataSize.toString())
-                }else{
-                    heart.setImageResource(R.drawable.full_heart)
-                    Log.d("noticeItems", noticeItems.heart.toString())
-
-                    heartEditor.putString(key, serializedData) // 데이터 저장
-                    heartEditor.apply()
-                    Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
-
                 }
             }
         }
     }
-
 }

@@ -24,19 +24,22 @@
 
         <activity
             android:name=".Second_Recyclerview_Adapter"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Major_RecyclerViewAdapter"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Heart0Activity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MajorActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".HeartActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".Home0Activity"
+            android:exported="true" />
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
