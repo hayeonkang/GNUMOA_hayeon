@@ -104,9 +104,6 @@ class NoticeDetailActivity :AppCompatActivity() {
             finish()
         }
 
-        binding.noticeHeart.setOnClickListener {
-        }
-
         SharedDB.init(this)
 
         val changeHeartInfo: SharedPreferences = SharedDB.getInstance()
