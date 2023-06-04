@@ -18,12 +18,12 @@ class Major0Activity : AppCompatActivity() {
         binding.homeButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            finish();
+            finish()
         }
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
-            finish();
+            finish()
         }
 //        binding.heartButton.setOnClickListener {
 //            val intent = Intent(this, HeartActivity::class.java)

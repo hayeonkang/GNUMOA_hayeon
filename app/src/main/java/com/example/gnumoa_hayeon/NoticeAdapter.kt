@@ -321,29 +321,24 @@ class NoticeAdapter(context: Context) : RecyclerView.Adapter<NoticeAdapter.Notic
         fun bind(noticeItems: Notice_list) {
             heart.setOnClickListener {
                 noticeItems.heart = !noticeItems.heart //하트 상태 변경
-
                 val item = noticeList[adapterPosition]
-
                 val key = item.major + "_" + item.title //key 값 이름
                 val heartEditor = changeHeartInfo.edit()
                 val serializedData = serializeData(item) // 데이터 직렬화->(키:값) 형태로 변환
-
-                if (noticeItems.heart) {
-                    heart.setImageResource(R.drawable.full_heart)
-
-                    heartEditor.putString(key, serializedData) // 데이터 저장
-                    heartEditor.apply()
-                    Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
-
-                } else {
+                if(changeHeartInfo.contains(key)){
                     heart.setImageResource(R.drawable.empty_heart)
                     heartEditor.remove(key) // 데이터 삭제
                     heartEditor.apply()
                     Toast.makeText(itemView.context, "관심목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-
                     val allEntries: Map<String, *> = changeHeartInfo.all
                     val dataSize = allEntries.size //저장소에 저장된 아이템 개수
                     Log.d("dataSize", dataSize.toString())
+                }else{
+                    heart.setImageResource(R.drawable.full_heart)
+                    Log.d("noticeItems", noticeItems.heart.toString())
+                    heartEditor.putString(key, serializedData) // 데이터 저장
+                    heartEditor.apply()
+                    Toast.makeText(itemView.context, "관심목록에 저장되었습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

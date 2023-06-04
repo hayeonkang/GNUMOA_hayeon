@@ -1,11 +1,11 @@
 package com.example.gnumoa_hayeon
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.gnumoa_hayeon.databinding.ActivityHeartBinding
 
 class HeartActivity : AppCompatActivity() {
@@ -15,6 +15,7 @@ class HeartActivity : AppCompatActivity() {
 
     private val heartAdapter = HeartAdapter()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

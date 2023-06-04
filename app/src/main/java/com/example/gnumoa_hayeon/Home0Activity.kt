@@ -3,7 +3,6 @@ package com.example.gnumoa_hayeon
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.gnumoa_hayeon.databinding.ActivityHeart0Binding
 import com.example.gnumoa_hayeon.databinding.ActivityHome0Binding
 
 class Home0Activity : AppCompatActivity() {
@@ -19,12 +18,12 @@ class Home0Activity : AppCompatActivity() {
 //        binding.homeButton.setOnClickListener {
 //            val intent = Intent(this, HomeActivity::class.java)
 //            startActivity(intent)
-//            finish();
+//            finish()
 //        }
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
-            finish();
+            finish()
         }
         binding.heartButton.setOnClickListener {
             SharedDB.init(this)

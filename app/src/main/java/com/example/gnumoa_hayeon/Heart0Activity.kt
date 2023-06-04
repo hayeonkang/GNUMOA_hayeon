@@ -35,13 +35,13 @@ class Heart0Activity : AppCompatActivity() {
         binding.majorButton.setOnClickListener {
             val intent = Intent(this, MajorActivity::class.java)
             startActivity(intent)
-            finish();
+            finish()
         }
         //장동호님이 해주심!!!!
 //        binding.heartButton.setOnClickListener {
 //            val intent = Intent(this, HeartActivity::class.java)
 //            startActivity(intent)
-//            finish();
+//            finish()
 //        }
 }
 }
