@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="411dp"
-        android:layout_height="585dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +143,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="137dp"
         android:layout_marginTop="8dp"
         android:background="#FFFFFF"
@@ -193,11 +193,11 @@
                 android:id="@+id/fileUrls"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
                 android:text="파일이름"
-                android:linksClickable="true"
-                android:autoLink="web"
                 android:textSize="12sp" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

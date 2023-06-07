@@ -8,9 +8,11 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="227dp"
-        android:layout_height="32dp"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,56 +22,47 @@
         android:id="@+id/homeButton"
         android:layout_width="40dp"
         android:layout_height="35dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="28dp"
         android:background="#FEFEFE"
         android:padding="0sp"
         android:scaleType="fitCenter"
-        app:tint="#5069F0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/majorButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_home_24" />
+        app:layout_constraintTop_toTopOf="@+id/majorButton"
+        app:srcCompat="@drawable/baseline_home_24"
+        app:tint="#5069F0" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="40dp"
         android:layout_height="20dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="3dp"
         android:text="홈"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/homeButton" />
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintStart_toStartOf="@+id/homeButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeButton" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="73dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginBottom="8dp"
         android:text="학과"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/majorButton" />
+        app:layout_constraintEnd_toEndOf="@+id/majorButton"
+        app:layout_constraintStart_toStartOf="@+id/majorButton" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="55dp"
         android:layout_height="20dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="3dp"
         android:text="관심목록"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/heartButton"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintEnd_toEndOf="@+id/heartButton"
+        app:layout_constraintStart_toStartOf="@+id/heartButton"
+        app:layout_constraintTop_toBottomOf="@+id/heartButton" />
 
     <ImageButton
         android:id="@+id/majorButton"
@@ -88,33 +81,33 @@
         android:id="@+id/heartButton"
         android:layout_width="40dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="28dp"
         android:background="#FEFEFE"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/majorButton"
         app:layout_constraintTop_toTopOf="@+id/majorButton"
         app:srcCompat="@drawable/baseline_favorite_24" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="412dp"
-        android:layout_height="560dp"
-        android:tint="#DCDCDC"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/majorButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:layout_constraintVertical_bias="0.258"
-        app:srcCompat="@android:drawable/screen_background_light" />
+        app:srcCompat="@android:drawable/screen_background_light"
+        app:tint="#DCDCDC" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="196dp"
         android:layout_height="184dp"
-        android:layout_marginTop="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,21 +118,20 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:text="관심학과가 없습니다."
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="학과 페이지에서 학과를 선택해주세요! "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
