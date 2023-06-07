@@ -30,8 +30,8 @@
 
         <ImageButton
             android:id="@+id/notice_heart"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="#00FFFFFF"
@@ -117,8 +117,8 @@
 
         <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
             android:background="#FFFFFF"
             android:padding="0sp"
@@ -129,8 +129,8 @@
 
         <ImageButton
             android:id="@+id/btn_url"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="16dp"
             android:background="#FFFFFF"
             android:padding="0sp"
@@ -155,8 +155,8 @@
 
         <ImageButton
             android:id="@+id/btn_file"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="#FFFFFF"
@@ -172,13 +172,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="첨부파일"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/btn_file"
             app:layout_constraintTop_toTopOf="@+id/btn_file" />
 
         <ScrollView
             android:id="@+id/file_scroll"
-            android:layout_width="394dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -186,8 +186,10 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notice_file">
+            app:layout_constraintTop_toBottomOf="@+id/notice_file"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/fileUrls"
@@ -198,7 +200,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
                 android:text="파일이름"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

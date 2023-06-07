@@ -276,6 +276,24 @@ class MajorActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        binding.homeTv.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.majorTv.setOnClickListener {
+            val intent = Intent(this, MajorActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.heartTv.setOnClickListener {
+            val intent = Intent(this, HeartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     class Recycler_item_out(val name: String, val items: MutableList<Recycler_item>)

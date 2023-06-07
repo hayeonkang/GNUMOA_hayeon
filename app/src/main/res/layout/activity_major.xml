@@ -35,6 +35,7 @@
         android:id="@+id/homeButton"
         android:layout_width="40dp"
         android:layout_height="35dp"
+        android:layout_marginEnd="40dp"
         android:background="#FEFEFE"
         android:padding="0sp"
         android:scaleType="fitCenter"
@@ -44,7 +45,7 @@
         app:srcCompat="@drawable/baseline_home_24" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/home_tv"
         android:layout_width="40dp"
         android:layout_height="20dp"
         android:layout_marginTop="3dp"
@@ -55,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/homeButton" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/major_tv"
         android:layout_width="73dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
@@ -66,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/heart_tv"
         android:layout_width="55dp"
         android:layout_height="20dp"
         android:layout_marginTop="3dp"
@@ -83,7 +84,7 @@
         android:layout_marginBottom="3dp"
         android:background="#FEFEFE"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/major_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +95,7 @@
         android:id="@+id/heartButton"
         android:layout_width="40dp"
         android:layout_height="35dp"
+        android:layout_marginStart="40dp"
         android:background="#FEFEFE"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"

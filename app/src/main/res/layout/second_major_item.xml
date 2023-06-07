@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
-<!--    //카드뷰-->
+    <!--    //카드뷰-->
     <androidx.cardview.widget.CardView
         android:id="@+id/page2_1_cardview"
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:layout_margin="2dp"
         app:cardCornerRadius="5dp">
 
-<!--        //가로로 정렬-->
+        <!--        //가로로 정렬-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,11 +33,12 @@
                     android:id="@+id/no_image"
                     android:layout_width="33dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/majorimg" />
+                    android:background="@drawable/majorimg"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
 
-<!--            //텍스트-->
+            <!--            //텍스트-->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
@@ -46,7 +46,6 @@
                 android:layout_weight="4"
                 android:layout_margin="5dp">
 
-<!--                //관광지 이름-->
                 <TextView
                     android:id="@+id/cardview_title"
                     android:layout_width="match_parent"
@@ -62,14 +61,15 @@
 
             <ImageButton
                 android:id="@+id/cardview_heart"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="7dp"
-                android:layout_weight="0.35"
+                android:layout_weight="0"
                 android:background="@drawable/empty_heart">
 
             </ImageButton>
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </LinearLayout>

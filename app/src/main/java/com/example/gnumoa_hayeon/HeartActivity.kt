@@ -61,6 +61,24 @@ class HeartActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.homeTv.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.majorTv.setOnClickListener {
+            val intent = Intent(this, MajorActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.heartTv.setOnClickListener {
+            val intent = Intent(this, HeartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         //리사이클러뷰 초기화
         binding.rvNoticeListHeart.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

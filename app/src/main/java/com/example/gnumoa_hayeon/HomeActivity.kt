@@ -45,6 +45,24 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        binding.homeTv.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.majorTv.setOnClickListener {
+            val intent = Intent(this, MajorActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.heartTv.setOnClickListener {
+            val intent = Intent(this, HeartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         val noticeAdapter = NoticeAdapter(this) // NoticeAdapter 초기화
 
         //리사이클러뷰 레이아웃 화면에 바인딩
